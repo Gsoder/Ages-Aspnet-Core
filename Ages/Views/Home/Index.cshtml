@@ -1,0 +1,389 @@
+﻿@{
+    ViewData["Title"] = "Ages: The Game!";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/index.css" />
+<script src="~/js/index.js"></script>
+<script src="~/js/Global/setCookies.js"></script>
+
+<div class="overlay">
+    <div class="wrapper">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="shadow"></div>
+        <div class="shadow"></div>
+        <div class="shadow"></div>
+        <span>Loading</span>
+    </div>
+</div>
+
+<div class="redes">
+    
+    <a class="instagram"  href="https://www.instagram.com/agesthegame/">
+        
+        
+        <svg xmlns="http://www.w3.org/2000/svg"
+             fill="#ffffff"
+             viewBox="0,0,550,550"
+             width="25px"
+             height="25px"
+             fill-rule="nonzero">
+            <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path>
+        </svg>
+    </a>
+
+    <a class="twitter"  href="#">
+        <svg
+      fill="white"
+      class="svgIcon"
+      xmlns="http://www.w3.org/2000/svg"
+      width="25px"
+      height="25px"
+      viewBox="0 0 564 564"
+    >
+      <path
+        d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"
+      ></path>
+    </svg>
+  </a>
+
+
+    </a>
+
+    <a class="discord"  href="https://discord.gg/uZ8fQUMeDX">
+        <svg height="25px"
+             width="25px"
+             viewBox="0 0 48 48"
+             xmlns="http://www.w3.org/2000/svg"
+             class="discord">
+            <path d="M40,12c0,0-4.585-3.588-10-4l-0.488,0.976C34.408,10.174,36.654,11.891,39,14c-4.045-2.065-8.039-4-15-4s-10.955,1.935-15,4c2.346-2.109,5.018-4.015,9.488-5.024L18,8c-5.681,0.537-10,4-10,4s-5.121,7.425-6,22c5.162,5.953,13,6,13,6l1.639-2.185C13.857,36.848,10.715,35.121,8,32c3.238,2.45,8.125,5,16,5s12.762-2.55,16-5c-2.715,3.121-5.857,4.848-8.639,5.815L33,40c0,0,7.838-0.047,13-6C45.121,19.425,40,12,40,12z M17.5,30c-1.933,0-3.5-1.791-3.5-4c0-2.209,1.567-4,3.5-4s3.5,1.791,3.5,4C21,28.209,19.433,30,17.5,30z M30.5,30c-1.933,0-3.5-1.791-3.5-4c0-2.209,1.567-4,3.5-4s3.5,1.791,3.5,4C34,28.209,32.433,30,30.5,30z"></path>
+        </svg>
+    </a>
+
+    <a class="tiktok"  href="#">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 35 35"
+             width="16px"
+             
+             height="16px"
+             class="tiktok">
+            <path d="M25.195102,6.75428571 C24.7946939,6.47510204 24.4148571,6.1675102 24.0587755,5.83346939 C22.8210612,4.66016327 22.0062857,3.11020408 21.7420408,1.42530612 C21.6622041,0.954367347 21.6220408,0.47755102 21.6220408,0 L15.7444898,0 L15.7444898,22.6408163 C15.7444898,27.5069388 13.5404082,28.5183673 10.804898,28.5183673 C10.0829388,28.5262041 9.36783673,28.3758367 8.71028571,28.0773061 C8.0524898,27.7792653 7.46791837,27.3406531 6.99820408,26.7920816 C6.5282449,26.2437551 6.18440816,25.5989388 5.99044898,24.9034286 C5.7964898,24.2079184 5.75755102,23.4781224 5.87583673,22.7657143 C5.99461224,22.053551 6.26767347,21.3756735 6.67640816,20.7800816 C7.08489796,20.1847347 7.61902041,19.6861224 8.24106122,19.3195102 C8.86334694,18.952898 9.55787755,18.7266122 10.276898,18.6573061 C10.9959184,18.588 11.7208163,18.6773878 12.4016327,18.9183673 L12.4016327,12.9328163 C5.40489796,11.8236735 0,17.4783673 0,23.5760816 C0.00465306122,26.4426122 1.14514286,29.1898776 3.17191837,31.216898 C5.19869388,33.2434286 7.94595918,34.3839184 10.8124898,34.3885714 C16.7730612,34.3885714 21.6220408,30.7444898 21.6220408,23.5760816 L21.6220408,11.3924082 C23.8995918,12.9795918 26.6204082,13.7142857 29.524898,13.7632653 L29.524898,8.26040816 C27.9658776,8.18914286 26.4617143,7.66604082 25.195102,6.75428571" fill="#FFFFFF"></path>
+        </svg>
+    </a>
+
+    
+</div>
+<div id="Jogosanteriores">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 3</div>
+    
+</div>
+
+
+<header class="cabecalho">
+    <nav class="cabecalho-menu">
+        <a asp-action="Termos" asp-controller="Home" asp-area="" class="cabecalho-menu-item" >Termos de Uso</a>
+        <a asp-action="Privacidade" asp-controller="Home" asp-area="" class="cabecalho-menu-item" >Privacidade</a>
+        <a asp-action="Ajude" asp-controller="Home" asp-area="" class="cabecalho-menu-item" >Ajude</a>
+        <a asp-action="Sobre" asp-controller="Home" asp-area="" class="cabecalho-menu-item" >Sobre</a>
+    
+    
+    </nav>
+</header>
+
+<div class="logo"></div>
+
+
+
+<div style="margin:auto; margin-top: 100px; width: fit-content;">
+
+    <div class="titulodificuldade">
+        Dificuldade de Jogo:
+    </div>
+    <div class="container dificuldade">
+        <div style="width: fit-content; margin: auto;">
+            <input class="rangedificuldade" id="dificuldadeSelecionada" type="range" min="0" max="3" step="1" list="tickmarks" oninput="updateText(this)">
+            <datalist id="tickmarks">
+                <option value="Sem Tempo">Sem Tempo </option>
+                <option value="Fácil">Fácil </option>
+                <option value="Médio">Médio </option>
+                <option value="Difícil">Difícil </option>
+            </datalist>
+            <div id="selectedOptionText"></div>
+        </div>
+    </div>
+    @using (Html.BeginForm("Jogar", "Home", FormMethod.Post, new { id = "formEnviarDificuldade" }))
+    {
+        
+        <input type="hidden" id="dificuldadeSelecionadaHidden" name="dificuldade" value="">
+
+        <button type="button" onclick="enviarDificuldadeParaController()" class="button-style">JOGAR</button>
+        // Adicionamos type="button" para evitar que o formulário seja submetido diretamente pelo botão
+    }
+
+    
+    
+    
+    
+  
+    
+    <button type="button"  style="padding:25px !important" class="button-style" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        OPÇÕES
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog container">
+            <div class="modal-content test">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                   <div class="tituloaudio">
+                    Configurações de Áudio
+                    </div>
+                    <div class="audio-control">
+                        <div class="audio-label">Desativar Música </div>
+                        <label class="switch">
+                            <input id="desativarmusica" checked="" type="checkbox">
+                            <div class="slider position-absolute top-0 end-0">
+                                <div class="circulo">
+                                    <svg class="cross" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 365.696 365.696" y="0" x="0" height="6" width="6" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- Conteúdo do SVG para o cross -->
+                                </svg>
+                                    <svg class="checkmark" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 24 24" y="0" x="0" height="10" width="10" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- Conteúdo do SVG para o checkmark div -->
+                                </svg>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="audio-control">
+                        <div class="audio-label2">
+                            Desativar Som do Botão
+                            <hr style="border: 1px dashed #000;">
+                        </div>
+                        <label class="switch">
+                            <input id="desativarsom" type="checkbox" onchange="checkMusicOption()">
+                            <div class="click position-absolute top-0 end-0">
+                                <div class="circulo">
+                                    <svg class="cross" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 365.696 365.696" y="0" x="0" height="6" width="6" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <!-- Conteúdo do SVG para o cross -->
+        </svg>
+                                    <svg class="checkmark" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 24 24" y="0" x="0" height="10" width="10" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <!-- Conteúdo do SVG para o checkmark -->
+        </svg>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+
+                   
+                  
+
+
+
+
+
+                    <div class="versao">
+                        
+                      Versão do Jogo</div>
+
+                    <p1>Versão: <span class="opacity-75">v1.24.02</span></p1>
+                    <hr style="border: 1px dashed #000;">
+
+
+                   
+                    
+                    <div class="tituloaudio">
+                        Cursor Alternativo Ages
+                    </div>
+
+                    <div class="audio-control">
+                        <div class="audio-label3">
+                            Ativar Cursor
+                            <hr style="border: 1px dashed #000;">
+                        </div>
+                        <label class="switch">
+                            <input id="cursor" type="checkbox" onchange="checkCursor()">
+                            <div class="click2 position-absolute end-0">
+                                <div class="circulo">
+                                    <svg class="cross" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 365.696 365.696" y="0" x="0" height="6" width="6" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <!-- Conteúdo do SVG para o cross -->
+                </svg>
+                                    <svg class="checkmark" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 24 24" y="0" x="0" height="10" width="10" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <!-- Conteúdo do SVG para o checkmark -->
+                </svg>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+
+                   
+                    
+                    
+                    
+
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="termos">
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                        <i class="fa fa-file-text-o" style="font-size:15px"></i>
+                        
+
+                       <div class="termosuso">
+                        <a asp-action="Termos" asp-controller="Home" asp-area="" class="termos">Termos de Serviço</a>
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+   
+    
+    
+    <button class="button-style"  style="padding:25px !important" type="button" data-bs-toggle="modal" data-bs-target="#comofunciona">COMO FUNCIONA</button>
+</div>
+
+
+<div class="modal fade" id="comofunciona" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content test">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Seja Bem-Vindo e Tenha um Ótimo Jogo!</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Explore o passado e descubra quando e onde momentos históricos foram testemunhados através de imagens que marcaram época. O <span style="color: #EB7EE1;">Ages</span> fará você adentrar no coração das fotografias, analisando detalhes e mergulhando a fundo na história moderna!</p>
+                <p class="fs-3">Seu objetivo é:</p>
+                <p class="objetivo">Fazer o máximo de pontos possível em um período de tempo.</p>
+                <p class="fs-3">Pontuação:</p>
+                <div class="certo">
+                    <p>Local</p>
+                </div>
+                <div class="soma">+</div>
+                <div class="certo ano">
+                    <p>Ano</p>
+                </div>
+                <div class="igual">=</div>
+                <div class="pontuacao">
+                    <p class="fs-4"> 10 Pontos </p>
+                </div>
+
+                <div class="localerrado">
+                    <p>Local</p>
+                </div>
+                <div class="soma">+</div>
+                <div class="certo ano">
+                    <p>Ano</p>
+                </div>
+                <div class="igual">=</div>
+                <div class="pontuacao">
+                    <p class="fs-4"> 5 Pontos </p>
+                </div>
+
+                <div class="certo">
+                    <p>Local</p>
+                </div>
+                <div class="soma">+</div>
+                <div class="errado">
+                    <p>Ano</p>
+                </div>
+                <div class="igual">=</div>
+                <div class="pontuacao">
+                    <p class="fs-4"> 3 Pontos </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="position-fixed bottom-0 end-0" style="margin-bottom:10px">
+        <button button type="button" class="contato" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="contato">
+            <p class="fs-2"> ? </p>
+        </button>
+    </div>
+
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog position-absolute top-0 end-0" style="margin-top: 300px">
+        <div class="modal-content modalcontato">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Nova Mensagem</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Seu Email:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Sua Mensagem:</label>
+                        <textarea class="form-control" id="mensagem"></textarea>
+                    </div>
+                </form>
+            </div>
+            <button type="button" class="Botaoenviar">Enviar</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+ 

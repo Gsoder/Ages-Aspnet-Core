@@ -1,0 +1,15 @@
+﻿body {
+    
+    background-image: url(../Imagens/fundo-alternativo.png);
+ 
+}
+
+
+/* CSS */
+.custom-cursor,
+.custom-cursor input,
+.custom-cursor button,
+.custom-cursor a {
+    cursor: url('../Imagens/cursor.cur'), auto !important;
+}
+
