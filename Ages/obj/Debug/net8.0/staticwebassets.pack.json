@@ -1,6 +1,22 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\wwwroot\\Imagens\\Dashboard\\desempenho.png",
+      "PackagePath": "staticwebassets\\Imagens\\Dashboard\\desempenho.png"
+    },
+    {
+      "Id": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\wwwroot\\Imagens\\Dashboard\\dificuldade.png",
+      "PackagePath": "staticwebassets\\Imagens\\Dashboard\\dificuldade.png"
+    },
+    {
+      "Id": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\wwwroot\\Imagens\\Dashboard\\estrela.png",
+      "PackagePath": "staticwebassets\\Imagens\\Dashboard\\estrela.png"
+    },
+    {
+      "Id": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\wwwroot\\Imagens\\Dashboard\\timer.png",
+      "PackagePath": "staticwebassets\\Imagens\\Dashboard\\timer.png"
+    },
+    {
       "Id": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\wwwroot\\Imagens\\LOGO-AGES.png",
       "PackagePath": "staticwebassets\\Imagens\\LOGO-AGES.png"
     },
@@ -57,6 +73,10 @@
       "PackagePath": "staticwebassets\\css\\Ajude\\index.css"
     },
     {
+      "Id": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\wwwroot\\css\\Dashboard\\index.css",
+      "PackagePath": "staticwebassets\\css\\Dashboard\\index.css"
+    },
+    {
       "Id": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\wwwroot\\css\\IndexGlobal.css",
       "PackagePath": "staticwebassets\\css\\IndexGlobal.css"
     },
@@ -83,6 +103,10 @@
     {
       "Id": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\wwwroot\\js\\Dashboard\\index.js",
+      "PackagePath": "staticwebassets\\js\\Dashboard\\index.js"
     },
     {
       "Id": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\wwwroot\\js\\Global\\getCookies.js",

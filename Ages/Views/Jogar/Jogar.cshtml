@@ -1,0 +1,156 @@
+﻿@model Ages.Models.DificuldadeViewModel
+<link rel="stylesheet" href="~/css/Jogar/index.css" />
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="~/js/Jogar/index.js"></script>
+@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+{
+    <button class="Btn">
+        <svg height="1.2em" class="arrow" viewBox="0 0 512 512"><path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"></path></svg>
+    </button>
+}
+
+@* <div id="alert" class="alerta position-absolute top-0 end-0 alert alert-primary d-flex align-items-center" role="alert">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-lg-9">
+                <div> Atenção!</div>
+                <div> Se você não souber a resposta, tente "chutar" 😉 </div>
+            </div>
+            <div class="d-flex align-items-center col">
+                <button onclick="mostra_oculta()" type="button" class="btn-close" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+</div> *@
+<div class="overlay">
+    <div class="wrapper">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="shadow"></div>
+        <div class="shadow"></div>
+        <div class="shadow"></div>
+        <span>Loading</span>
+    </div>
+</div>
+
+<div id="container-jogo" class="container d-flex justify-content-center">
+    @* commit 2.0 *@
+
+ 
+        <div id="fixado" style="margin-top: 250px">
+            <button class="pass">
+                <svg height="2em" class="arrow" viewBox="0 0 512 512"><path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"></path></svg>
+
+            </button>
+        </div>
+
+
+
+    
+
+    <div class="jogo">
+        <div id="timer" class="timer"></div>
+        <img class="imagem" src="@Model.ViewModel[0].Imagem" />
+    </div>
+
+        <div id="fixado2" style="margin-top: 250px">
+            <button class="pass2">
+                <svg height="2em" class="arrow2" viewBox="0 0 512 512"><path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"></path></svg>
+
+            </button>
+        </div>
+
+
+</div>
+
+@* <div class="container d-flex align-items-center">
+    <div class="text-center" style="margin:auto;">
+        <div class="row">
+            <div class="col-lg-6">
+                <!-- Coluna principal com largura de 50% em telas grandes -->
+                <div class="row">
+                    <!-- Nova linha para agrupar as colunas -->
+                    <div class="col-6">
+                        <!-- 50% de largura em telas pequenas -->
+                        <div class="col col-md- col-lg-3 col-12">
+                            <!-- Adicionando a classe col-12 para telas menores que 760px -->
+                            <h1 class="textos">Qual o Continente?</h1>
+                            <label for="exampleDataList" class="form-label"></label>
+                            <input class="form-control inputs" list="datalistOptions2" id="continente" placeholder="Digite um Continente..." required>
+                            <div class="invalid-tooltip">
+                                Please select a valid state.
+                            </div>
+                            <datalist id="datalistOptions2">
+                                <option></option>
+                                <option></option>
+                                <option>África</option>
+                                <option>América do Norte</option>
+                                <option>América do Sul</option>
+                                <option>América Central</option>
+                                <option>Ásia</option>
+                                <option>Europa</option>
+                                <option>Oceania</option>
+                            </datalist>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <!-- 50% de largura em telas pequenas -->
+                        <div class="col col-md- col-lg-3 col-12">
+                            <!-- Adicionando a classe col-12 para telas menores que 760px -->
+                            <h1 class="textos">Qual o País?</h1>
+                            <label for="examplepaises" class="form-label"></label>
+                            <input class="form-control inputs" list="paises" id="pais" placeholder="Digite um País..." required>
+                            <div class="invalid-tooltip">
+                                Please select a valid state.
+                            </div>
+                            <datalist id="paises">
+                                <option></option>
+                                <option></option>
+                                <option>Afeganistão</option>
+                                <!-- Lista de países continua aqui -->
+                            </datalist>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <!-- Coluna principal com largura de 50% em telas grandes -->
+                <div class="row">
+                    <!-- Nova linha para agrupar as colunas -->
+                    <div class="col-6">
+                        <!-- 50% de largura em telas pequenas -->
+                        <div class="col col-md- col-lg-3 col-12">
+                            <!-- Adicionando a classe col-12 para telas menores que 760px -->
+                            <h1 class="textos">Qual o Ano?</h1>
+                            <label for="examplepaises" class="form-label"></label>
+                            <input class="form-control inputs" type="text" placeholder="Digite um Ano..." aria-label="Digite um Ano..." id="ano" required>
+                            <div class="invalid-tooltip">
+                                Please select a valid state.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <!-- 50% de largura em telas pequenas -->
+                        <div class="col col-md- col-lg-3 col-12 d-flex justify-content-start">
+                            <!-- Adicionando a classe col-12 para telas menores que 760px -->
+                            <button class="avancar" id="proximoBtn">
+                                Avançar!
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> *@
+
+
+
+
+
+    <script>
+
+        var dificuldade = @Model.Dificuldade;
+
+    </script>

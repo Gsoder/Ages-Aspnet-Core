@@ -3,6 +3,25 @@
 window.onload = function () {
 
    
+    window.addEventListener('resize', function () {
+        var container = document.getElementById("fixado");
+        var container2 = document.getElementById("fixado2");
+        var container3 = document.getElementById("container-jogo");
+    
+
+        if (window.innerWidth < 790) {
+            container.classList.add('position-fixed', 'start-0', 'top-0');
+            container2.classList.add('position-fixed', 'end-0', 'top-0');
+            container3.classList.remove('container');
+            container3.classList.add('container-fluid');
+        } else {
+            container.classList.remove('position-fixed', 'start-0', 'top-0');
+            container2.classList.remove('position-fixed', 'end-0', 'top-0');
+            container3.classList.add('container');
+            container3.classList.remove('container-fluid');
+        }
+    });
+
 
 
     $("#proximoBtn").click(function () {
@@ -20,7 +39,7 @@ window.onload = function () {
 
         // Faça a requisição AJAX incluindo o token CSRF no cabeçalho da requisição
         $.ajax({
-            url: "/Home/ProximaImagem",
+            url: "/Jogar/ProximaImagem",
             type: "POST",
             headers: { "X-CSRF-TOKEN": csrfToken },
             data: { ano: document.getElementById("ano").value, pais: document.getElementById("pais").value, continente: document.getElementById("continente").value },
@@ -28,12 +47,61 @@ window.onload = function () {
                 console.log(response);
 
                 // Verifica se a resposta contém um URL de imagem
-                if (response && typeof response === 'string') {
+                if (response && typeof response === 'object' && response.imagem) {
                     // Atualiza o src da imagem com o URL retornado pela requisição
-                    $("#imagem-jogo").attr("src", response);
+                    $(".jogo .imagem").attr("src", response.imagem);
                 } else {
-                    console.log("Resposta da requisição não contém URL de imagem.");
-                    
+                    // Array para armazenar os IDs dos inputs corretos
+                    var inputsCorretos = [];
+
+                    if (response && typeof response === 'object' && response.chutesCorretos && response.chutesCorretos.length > 0) {
+                        // Se há chutes corretos, faça algo com eles (por exemplo, exiba-os na interface)
+                        console.log("Chutes corretos:", response.chutesCorretos);
+
+                        // Percorre os chutes corretos
+                        response.chutesCorretos.forEach(function (chuteCorreto) {
+                            // Seleciona o input correspondente ao chute correto
+                            switch (chuteCorreto) {
+                                case 'ano':
+                                    if (!$('#ano').hasClass('correto')) {
+                                        // Adiciona a classe 'correto' com fade
+                                        $('#ano').addClass('correto').hide().fadeIn();
+                                        // Adiciona o ID do input aos inputs corretos
+                                        inputsCorretos.push('ano');
+                                    }
+                                    break;
+                                case 'país':
+                                    if (!$('#pais').hasClass('correto')) {
+                                        $('#pais').addClass('correto').hide().fadeIn();
+                                        inputsCorretos.push('pais');
+                                    }
+                                    break;
+                                case 'continente':
+                                    if (!$('#continente').hasClass('correto')) {
+                                        $('#continente').addClass('correto').hide().fadeIn();
+                                        inputsCorretos.push('continente');
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                        });
+
+                        // Desabilita os inputs que foram marcados como corretos
+                        $('.correto').prop('disabled', true);
+
+                        // Remove os inputs corretos da lista de inputs a serem verificados
+                        inputsCorretos.forEach(function (inputId) {
+                            $('.inputs').not('.correto').not('#' + inputId).css('background-color', 'red').fadeOut().fadeIn();
+                        });
+                    } else {
+                        // Caso contrário, faça algo diferente
+                    }
+
+
+
+
                 }
             },
             error: function (xhr, status, error) {

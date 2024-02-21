@@ -3,14 +3,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 
 
+.selecionado {
+    background-color: green !important; /* Altere isso para a cor desejada */
+    color: white; /* Altere isso para a cor do texto desejada */
+}
 
+.selecionado-fade {
+    background-color: green !important; /* Altere isso para a cor desejada */
+    color: white; /* Altere isso para a cor do texto desejada */
+    transition: background-color 0.3s ease; /* Adiciona transição de fade */
+}
 .redes {
-    width: 80px;
-    height: auto;
+    width: 80px !important;
+    height: 160px !important;
     display: flex;
     flex-direction: column;
-    position:fixed;
     margin-top: 30px;
+    margin-left: -10px;
     
 }
 
@@ -57,13 +66,57 @@
     }
 
 
+.redes2 {
+    width: 55px !important;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    margin-left: -10px;
+    transform: rotate(180deg);
+    margin-bottom: 25px;
+    cursor: pointer;
+}
+
+
+    .redes2 a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 40px;
+        transition: all 0.2s ease-in-out;
+        
+    }
+
+        .redes2 a svg {
+            width: 30px;
+            fill: #ffffff;
+            height: 20px;
+            transform: rotate(180deg);
+        }
+
+
+
+    .redes2 .ajuda {
+        background: linear-gradient(45deg, #833ab4, #fd1d1d, #f56040);
+        border-radius: 0 10px 10px 0;
+    }
+
+
+    .redes2 a:hover {
+        width: 130%;
+        border-radius: 0 10px 10px 0;
+    }
+
 .cabecalho {
     display: flex;
     flex-direction: row;
-    
     justify-content: right;
     padding: 30px;
     text-align: right;
+
+    float: right;
    
    
 }
@@ -636,23 +689,75 @@
     margin: auto;
     width: fit-content;
 }
-#Jogosanteriores {
-    position: fixed;
-    left: 0;
-    width: 100px;
-    height: 400px; /* Definido como 100% da altura da viewport */
-    overflow-y: scroll;
-    border: 1px solid black;
-    margin-top: 200px
+.textosemana {
+    
+
+    color: white;
+    font-family: 'Righteous', sans-serif;
+    margin-left: 6px;
+    text-align: center;
+    width: fit-content;
 }
 
-.item {
-    width: 35px;
-    height: 35px; /* Ajuste conforme necessário */
-    background-color: lightgray; /* Adicione cor de fundo para os itens */
-    border-bottom: 1px solid black;
-    border-radius: 50px /* Adicione uma borda inferior para separar os itens */
+.Jogos-Semana {
+    margin-top: 100px;
+    width: fit-content;
+    height: auto;
 }
+
+#Jogosanteriores {
+    width: 100px;
+    height: 400px; /* Definido como 100% da altura da viewport */
+    overflow-y: hidden; /* Remover a barra de rolagem vertical */
+
+}
+@media (max-width: 570px) {
+    .Jogos-Semana-celular {
+        margin: auto;
+        width: 333px;
+        display: flex !important;
+        justify-content: space-between;
+        overflow-x: hidden;
+    }
+
+    .item {
+        margin: auto;
+    }
+
+    .Jogos-Semana {
+        display: none;
+    }
+
+    #Jogosanteriores-celular {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        flex-direction: row-reverse; /* Alterando a direção dos itens */
+    }
+    .logo {
+        transform: scale(0.7);
+    }
+
+    .redes {
+        margin-top: 10px !important;
+    }
+}
+
+
+.item {
+    color: black;
+    margin: 5px;
+    background-color: white;
+    font-family: 'Righteous', sans-serif;
+    text-align: center;
+    user-select: none;
+    width: 70px;
+    height: 30px;
+    border-radius: 50px;
+    border: 2px solid rgb(0, 0, 0);
+    transition: background-color 0.3s ease;
+}
+
 .overlay {
     position: fixed;
     top: 0;
@@ -776,3 +881,4 @@
     color: #fff;
     left: 15%;
 }
+

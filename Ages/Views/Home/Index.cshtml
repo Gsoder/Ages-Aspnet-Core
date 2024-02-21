@@ -2,7 +2,7 @@
     ViewData["Title"] = "Ages: The Game!";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@model List<Ages.Models.JogoViewModel>;
 <link rel="stylesheet" href="~/css/index.css" />
 <script src="~/js/index.js"></script>
 <script src="~/js/Global/setCookies.js"></script>
@@ -18,7 +18,7 @@
         <span>Loading</span>
     </div>
 </div>
-
+<div class="container-fluid d-flex justify-content-between" style="height: 100px !important">
 <div class="redes">
     
     <a class="instagram"  href="https://www.instagram.com/agesthegame/">
@@ -50,7 +50,7 @@
   </a>
 
 
-    </a>
+    
 
     <a class="discord"  href="https://discord.gg/uZ8fQUMeDX">
         <svg height="25px"
@@ -72,54 +72,52 @@
             <path d="M25.195102,6.75428571 C24.7946939,6.47510204 24.4148571,6.1675102 24.0587755,5.83346939 C22.8210612,4.66016327 22.0062857,3.11020408 21.7420408,1.42530612 C21.6622041,0.954367347 21.6220408,0.47755102 21.6220408,0 L15.7444898,0 L15.7444898,22.6408163 C15.7444898,27.5069388 13.5404082,28.5183673 10.804898,28.5183673 C10.0829388,28.5262041 9.36783673,28.3758367 8.71028571,28.0773061 C8.0524898,27.7792653 7.46791837,27.3406531 6.99820408,26.7920816 C6.5282449,26.2437551 6.18440816,25.5989388 5.99044898,24.9034286 C5.7964898,24.2079184 5.75755102,23.4781224 5.87583673,22.7657143 C5.99461224,22.053551 6.26767347,21.3756735 6.67640816,20.7800816 C7.08489796,20.1847347 7.61902041,19.6861224 8.24106122,19.3195102 C8.86334694,18.952898 9.55787755,18.7266122 10.276898,18.6573061 C10.9959184,18.588 11.7208163,18.6773878 12.4016327,18.9183673 L12.4016327,12.9328163 C5.40489796,11.8236735 0,17.4783673 0,23.5760816 C0.00465306122,26.4426122 1.14514286,29.1898776 3.17191837,31.216898 C5.19869388,33.2434286 7.94595918,34.3839184 10.8124898,34.3885714 C16.7730612,34.3885714 21.6220408,30.7444898 21.6220408,23.5760816 L21.6220408,11.3924082 C23.8995918,12.9795918 26.6204082,13.7142857 29.524898,13.7632653 L29.524898,8.26040816 C27.9658776,8.18914286 26.4617143,7.66604082 25.195102,6.75428571" fill="#FFFFFF"></path>
         </svg>
     </a>
-
-    
 </div>
-<div id="Jogosanteriores">
-    <div class="item">Item 1</div>
-    <div class="item">Item 2</div>
-    <div class="item">Item 3</div>
-    <div class="item">Item 1</div>
-    <div class="item">Item 2</div>
-    <div class="item">Item 3</div>
-    <div class="item">Item 1</div>
-    <div class="item">Item 2</div>
-    <div class="item">Item 1</div>
-    <div class="item">Item 2</div>
-    <div class="item">Item 3</div>
-    <div class="item">Item 3</div>
-    <div class="item">Item 1</div>
-    <div class="item">Item 2</div>
-    <div class="item">Item 1</div>
-    <div class="item">Item 2</div>
-    <div class="item">Item 1</div>
-    <div class="item">Item 2</div>
-    <div class="item">Item 1</div>
-    <div class="item">Item 2</div>
-    <div class="item">Item 3</div>
-    <div class="item">Item 3</div>
-    <div class="item">Item 3</div>
-    <div class="item">Item 3</div>
-    
+    <header class="cabecalho">
+        <nav class="cabecalho-menu">
+            <a asp-action="Dashboard" asp-controller="Home" asp-area="" class="cabecalho-menu-item">Termos de Uso</a>
+            <a asp-action="Privacidade" asp-controller="Home" asp-area="" class="cabecalho-menu-item">Privacidade</a>
+            <a asp-action="Ajude" asp-controller="Home" asp-area="" class="cabecalho-menu-item">Ajude</a>
+            <a asp-action="Sobre" asp-controller="Home" asp-area="" class="cabecalho-menu-item">Sobre</a>
+
+
+        </nav>
+    </header>
+
 </div>
 
+<div class="Jogos-Semana position-absolute">
+    <div class="textosemana">
+        <span>
+            Jogos da
+            <br />Semana:
+        </span>
+    </div>
 
-<header class="cabecalho">
-    <nav class="cabecalho-menu">
-        <a asp-action="Termos" asp-controller="Home" asp-area="" class="cabecalho-menu-item" >Termos de Uso</a>
-        <a asp-action="Privacidade" asp-controller="Home" asp-area="" class="cabecalho-menu-item" >Privacidade</a>
-        <a asp-action="Ajude" asp-controller="Home" asp-area="" class="cabecalho-menu-item" >Ajude</a>
-        <a asp-action="Sobre" asp-controller="Home" asp-area="" class="cabecalho-menu-item" >Sobre</a>
-    
-    
-    </nav>
-</header>
+    <div id="Jogosanteriores">
+        @for (int i = Model[0].NumeroDeDias; i >= 1; i--)
+        {
+            <button class="item" id="botaoDia@(i)" onclick="selecionarDia(@i)">Dia @i</button>
+        }
+    </div>
+</div>
+
+
+
 
 <div class="logo"></div>
 
+<div class="Jogos-Semana-celular" id="JogosRolagem" style="display: none">
+    @for (int i = Model[0].NumeroDeDias; i >= 1; i--)
+    {
+        <div id="Jogosanteriores-celular" class="draggable-container">
+            <button class="item item-celular" id="botaoCelular@(i)" onclick="selecionarDia(@i)">Dia @i</button> <!-- Inclua o número do dia no ID -->
+        </div>
+    }
+</div>
 
 
-<div style="margin:auto; margin-top: 100px; width: fit-content;">
+<div style="margin:auto; margin-top: 60px; width: fit-content;">
 
     <div class="titulodificuldade">
         Dificuldade de Jogo:
@@ -136,7 +134,7 @@
             <div id="selectedOptionText"></div>
         </div>
     </div>
-    @using (Html.BeginForm("Jogar", "Home", FormMethod.Post, new { id = "formEnviarDificuldade" }))
+    @using (Html.BeginForm("Jogar", "Jogar", FormMethod.Post, new { id = "formEnviarDificuldade" }))
     {
         
         <input type="hidden" id="dificuldadeSelecionadaHidden" name="dificuldade" value="">
@@ -350,12 +348,18 @@
 
 
 
+<div class="redes2 position-fixed bottom-0 end-0" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="contato">
 
-<div class="position-fixed bottom-0 end-0" style="margin-bottom:10px">
-        <button button type="button" class="contato" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="contato">
-            <p class="fs-2"> ? </p>
-        </button>
-    </div>
+    <a class="ajuda">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="1280.000000pt" height="732.000000pt" viewBox="0 0 1280.000000 732.000000" preserveAspectRatio="xMidYMid meet">
+            <g transform="translate(0.000000,732.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+                <path d="M3022 6300 c-323 -25 -628 -106 -897 -235 -126 -61 -176 -99 -208 -158 -22 -42 -22 -48 -25 -537 -2 -340 0 -507 8 -533 16 -54 64 -105 107 -113 55 -10 101 10 229 100 260 185 491 279 757 308 238 25 394 -38 469 -190 31 -62 33 -73 32 -167 0 -84 -4 -110 -26 -163 -63 -151 -147 -251 -414 -488 -88 -78 -185 -169 -214 -201 -233 -254 -340 -525 -340 -863 0 -226 44 -413 115 -486 47 -49 75 -58 230 -75 109 -11 175 -29 175 -47 0 -6 -42 -31 -92 -58 -263 -134 -392 -262 -459 -454 -31 -88 -38 -260 -15 -362 54 -242 267 -452 528 -520 116 -30 328 -30 440 0 207 56 377 191 467 370 85 169 85 425 -2 597 -74 148 -176 240 -392 355 -144 77 -144 89 3 116 108 19 160 41 191 80 36 45 37 87 5 193 -22 76 -28 116 -28 191 0 221 78 334 449 652 425 364 590 592 690 953 62 223 67 228 165 184 36 -15 79 -28 95 -29 39 0 98 28 160 75 158 122 326 213 496 269 390 130 669 87 768 -117 69 -141 43 -319 -70 -484 -50 -72 -160 -183 -324 -328 -180 -159 -251 -232 -334 -345 -158 -212 -231 -445 -231 -729 1 -240 46 -428 120 -495 46 -42 80 -52 224 -66 128 -13 185 -32 166 -55 -7 -8 -58 -39 -114 -68 -146 -76 -207 -119 -284 -202 -121 -129 -172 -262 -172 -445 0 -123 16 -195 65 -295 91 -184 270 -324 490 -381 101 -27 321 -24 426 4 208 56 378 190 464 367 89 183 89 429 1 603 -73 145 -180 242 -381 346 -90 46 -132 73 -124 79 2 1 11 8 20 15 9 6 59 20 111 31 106 21 147 39 176 76 35 44 35 84 2 210 -44 173 -39 270 24 400 45 94 122 183 264 307 65 57 164 142 219 191 352 306 527 566 618 917 47 181 59 192 155 149 107 -47 141 -38 297 78 224 165 457 263 722 301 196 28 344 -5 440 -98 104 -101 127 -259 61 -432 -47 -126 -148 -245 -390 -458 -262 -231 -358 -345 -451 -534 -86 -174 -119 -327 -119 -545 0 -145 18 -280 48 -373 45 -135 100 -171 286 -188 129 -11 195 -33 175 -56 -6 -7 -63 -41 -127 -74 -143 -75 -191 -110 -275 -200 -75 -78 -137 -195 -158 -295 -18 -85 -16 -228 4 -305 64 -246 265 -441 526 -512 109 -30 333 -30 444 0 256 70 452 262 511 503 20 83 21 243 0 329 -25 110 -77 203 -161 291 -78 82 -144 129 -278 198 -44 22 -89 47 -100 56 -31 25 -3 41 113 63 111 22 153 41 186 85 27 36 25 109 -3 197 -46 140 -38 286 21 407 57 115 126 187 456 472 445 384 634 699 673 1128 41 457 -84 842 -361 1106 -229 219 -542 350 -954 398 -134 16 -476 16 -601 0 -404 -50 -831 -196 -965 -331 -56 -56 -70 -99 -70 -221 -2 -270 -27 -437 -65 -423 -9 4 -48 72 -86 152 -96 200 -163 299 -278 412 -191 190 -425 308 -740 374 -378 80 -812 68 -1204 -33 -243 -63 -506 -179 -586 -260 -59 -58 -71 -100 -71 -258 -1 -207 -25 -393 -51 -393 -18 0 -44 42 -118 193 -89 184 -161 287 -277 397 -220 209 -512 334 -904 385 -141 18 -409 26 -548 15z" />
+            </g>
+        </svg>
+    </a>
+
+</div>
+
 
 
 <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -386,4 +390,17 @@
 
 
 
- 
+ <script>
+    window.onload = function () {
+        // Obtenha o número do dia atual
+        var diaAtual = @Model[0].NumeroDeDias;
+
+        // Selecione o botão correspondente ao dia atual e adicione a classe 'selecionado-fade'
+        var botaoDiaAtual = document.getElementById('botaoDia' + diaAtual);
+        botaoDiaAtual.classList.add('selecionado-fade');
+    };
+
+    // Função para selecionar um dia quando clicado
+   
+
+ </script>

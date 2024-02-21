@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/Dashboard/index.css" />
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="~/js/Dashboard/index.js"></script>
+
+
+
+
+<div class="main container">
+
+
+
+
+
+    <div class="report-container">
+        <div class="report-header">
+            <h1 class="recent-Articles">Scoreboard:</h1>
+
+            <button class="view">Voltar Para o Menu</button>
+
+        </div>
+        <div class="box-container">
+
+
+
+
+            <div id="dropdown" class="box" type="button" onclick="toggleDropdown()" aria-expanded="false" onmouseover="openDropdown()" onmouseout="closeDropdown()">
+                <div class="text">
+                    <h2 class="topic-heading">5.510</h2>
+                    <h2 class="topic fw-bold">Pontuação Geral</h2>
+                </div>
+                <img src="\Imagens\Dashboard\estrela.png" />
+                <ul id="dropdownMenu" class="dropdown-menu" style="display: none;">
+                    <li style="pointer-events: none;"><a class="dropdown-item"> <span class="fw-bold">Pontuação por Rodada </span></a></li>
+                    <li style="pointer-events: none;"><a class="dropdown-item">Rodada 1: <span class="color">1.500 pontos</span></a></li>
+                    <li style="pointer-events: none;"><a class="dropdown-item">Rodada 2: <span class="color">4.210 pontos</span></a></li>
+                    <li style="pointer-events: none;"><a class="dropdown-item">Rodada 3: <span class="color">3.730 pontos</span></a></li>
+                    <li style="pointer-events: none;"><a class="dropdown-item">Rodada 4: <span class="color">8.900 pontos</span></a></li>
+                    <li style="pointer-events: none;"><a class="dropdown-item">Rodada 5: <span class="color">6.450 pontos</span></a></li>
+                </ul>
+            </div>
+
+
+
+
+
+            <div id="dropdown2" class="box" type="button" onclick="toggleDropdown2()" aria-expanded="false" onmouseover="openDropdown2()" onmouseout="closeDropdown2()">
+                <div class="text">
+                    <h2 class="topic-heading">4:32</h2>
+                    <h2 class="topic">Tempo Geral</h2>
+                </div>
+                <img src="\Imagens\Dashboard\timer.png" />
+                <ul id="dropdownMenu2" class="dropdown-menu" style="display: none;">
+                    <li style="pointer-events: none;"><a class="dropdown-item"> <span class="fw-bold">Tempo por Rodada: </span></a></li>
+                    <li style="pointer-events: none;"><a class="dropdown-item">Rodada 1:</a></li>
+                    <li style="pointer-events: none;"><a class="dropdown-item">Rodada 2:</a></li>
+                    <li style="pointer-events: none;"><a class="dropdown-item">Rodada 3:</a></li>
+                    <li style="pointer-events: none;"><a class="dropdown-item">Rodada 4:</a></li>
+                    <li style="pointer-events: none;"><a class="dropdown-item">Rodada 5:</a></li>
+
+                </ul>
+            </div>
+
+
+            <div class="box box3">
+                <div class="text">
+                    <h2 class="topic-heading">Média</h2>
+                    <h2 class="topic">Dificuldade</h2>
+                </div>
+
+                <img src="\Imagens\Dashboard\dificuldade.png" />
+            </div>
+
+            <div class="box box4">
+                <div class="text">
+                    <h2 class="topic-heading">70</h2>
+                    <h2 class="topic">Desempenho</h2>
+                </div>
+
+                <img src="\Imagens\Dashboard\desempenho.png" />
+            </div>
+        </div>
+        <div class="report-header">
+            <h1 class="recent-Articles">Pontuação da Semana:</h1>
+
+
+        </div>
+        <div class="areaGrafico">
+            <canvas id="barras"></canvas>
+        </div>
+        <div class="report-header">
+            <h1 class="recent-Articles">Pontuação da Semana:</h1>
+
+
+        </div>
+        <div>
+            <canvas id="myChart" width="600" height="280"></canvas>
+        </div>
+
+
+    </div>
+</div>
+    
+
+
+

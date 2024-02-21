@@ -7,6 +7,7 @@
         public string Dica1 { get; set; }
         public string Dica2 { get; set; }
         public string Dica3 { get; set; }
+        public int NumeroDeDias { get; set; }
 
     }
 }
