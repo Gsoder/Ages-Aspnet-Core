@@ -65,6 +65,10 @@
       "PackagePath": "staticwebassets\\Imagens\\site.webmanifest"
     },
     {
+      "Id": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\wwwroot\\Musicas\\Quiz.mp3",
+      "PackagePath": "staticwebassets\\Musicas\\Quiz.mp3"
+    },
+    {
       "Id": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\wwwroot\\Musicas\\somdobotao.wav",
       "PackagePath": "staticwebassets\\Musicas\\somdobotao.wav"
     },
@@ -115,6 +119,10 @@
     {
       "Id": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\wwwroot\\js\\Global\\setCookies.js",
       "PackagePath": "staticwebassets\\js\\Global\\setCookies.js"
+    },
+    {
+      "Id": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\wwwroot\\js\\Global\\sw.js",
+      "PackagePath": "staticwebassets\\js\\Global\\sw.js"
     },
     {
       "Id": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\wwwroot\\js\\Jogar\\index.js",

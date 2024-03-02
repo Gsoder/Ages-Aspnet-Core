@@ -7,15 +7,31 @@
 <script src="~/js/index.js"></script>
 <script src="~/js/Global/setCookies.js"></script>
 
-<div class="overlay">
-    <div class="wrapper">
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="shadow"></div>
-        <div class="shadow"></div>
-        <div class="shadow"></div>
-        <span>Loading</span>
+<div class="overlay align-content-center">
+    <div class="logo-termo"></div>
+    <div class="meio-overlay">
+
+        <div class="wrapper" id="loading">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <span>Loading</span>
+        </div>
+        
+        <div class="container-botao" id="botao-entrar" style="display: none">
+            <button id="btn-termo" class="botao-enviar">
+                <div id="btnText">Aceitar termos AGES</div>
+                <div class="check-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                        <path fill="transparent" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                    </svg>
+                </div>
+            </button>
+        <a asp-action="Termos" asp-controller="Home" asp-area="" class="termos" style="margin-top: 20px;"><span style="margin: auto;">Termos de Uso</span> </a>
+        </div>
     </div>
 </div>
 <div class="container-fluid d-flex justify-content-between" style="height: 100px !important">
@@ -155,20 +171,91 @@
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog container">
+        <div class="modal-dialog container opcoes d-flex align-items-center justify-content-center" style="height: 100vh;">
             <div class="modal-content test">
                 <div class="modal-header">
+                    <div class="tituloconfig">
+                        Opções
+                    </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                   <div class="tituloaudio">
-                    Configurações de Áudio
+                    <div class="titulo-opcoes">
+                        Configurações de Áudio
                     </div>
-                    <div class="audio-control">
-                        <div class="audio-label">Desativar Música </div>
+                    <div class="audio-control d-flex align-items-center">
+                        <div class="audio-label">Desativar Música</div>
                         <label class="switch">
-                            <input id="desativarmusica" checked="" type="checkbox">
-                            <div class="slider position-absolute top-0 end-0">
+                            <input id="desativarmusicafundo" type="checkbox">
+                            <div class="slider">
+                                <div class="circulo">
+                                    <svg class="cross" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 365.696 365.696" y="0" x="0" height="6" width="6" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Conteúdo do SVG para o cross -->
+                </svg>
+                                    <svg class="checkmark" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 24 24" y="0" x="0" height="10" width="10" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Conteúdo do SVG para o checkmark div -->
+                </svg>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+
+
+                    <div class="audio-botao d-flex align-items-center">
+
+                        <div class="audio-label">
+                                    Desativar Som do Botão
+                                </div>
+
+                                <label class="switch">
+                                    <input id="desativarsom" type="checkbox">
+                                    <div class="click">
+                                        <div class="circulo">
+                                            <svg class="cross" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 365.696 365.696" y="0" x="0" height="6" width="6" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <!-- Conteúdo do SVG para o cross -->
+        </svg>
+                                            <svg class="checkmark" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 24 24" y="0" x="0" height="10" width="10" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <!-- Conteúdo do SVG para o checkmark -->
+        </svg>
+                                        </div>
+                                    </div>
+                                </label>
+                            
+                            
+
+
+                        
+
+                    </div>
+                    <hr style="border: 1px dashed #000;">
+
+
+
+
+                    <div class="titulo-opcoes">
+
+                        Versão do Jogo
+                    </div>
+
+
+                    <div class="audio-control audio-label d-flex align-items-center">Versão:<span class="opacity-75">v1.24.02</span></div>
+                    <hr style="border: 1px dashed #000;">
+
+
+
+
+                    <div class="titulo-opcoes">
+                        Cursor Alternativo Ages
+                    </div>
+
+                    <div class="audio-control audio-label d-flex align-items-center">
+                        <div class="audio-label3">
+                            Ativar Cursor
+                            
+                        </div>
+                        <label class="switch">
+                            <input id="cursor"  type="checkbox" >
+                            <div class="slider">
                                 <div class="circulo">
                                     <svg class="cross" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 365.696 365.696" y="0" x="0" height="6" width="6" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg">
                                     <!-- Conteúdo do SVG para o cross -->
@@ -179,95 +266,72 @@
                                 </div>
                             </div>
                         </label>
-                    </div>
-
-                    <div class="audio-control">
-                        <div class="audio-label2">
-                            Desativar Som do Botão
-                            <hr style="border: 1px dashed #000;">
-                        </div>
-                        <label class="switch">
-                            <input id="desativarsom" type="checkbox" onchange="checkMusicOption()">
-                            <div class="click position-absolute top-0 end-0">
-                                <div class="circulo">
-                                    <svg class="cross" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 365.696 365.696" y="0" x="0" height="6" width="6" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg">
-          <!-- Conteúdo do SVG para o cross -->
-        </svg>
-                                    <svg class="checkmark" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 24 24" y="0" x="0" height="10" width="10" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg">
-          <!-- Conteúdo do SVG para o checkmark -->
-        </svg>
-                                </div>
-                            </div>
-                        </label>
-                    </div>
-
-                   
-                  
-
-
-
-
-
-                    <div class="versao">
                         
-                      Versão do Jogo</div>
-
-                    <p1>Versão: <span class="opacity-75">v1.24.02</span></p1>
+                    </div>
                     <hr style="border: 1px dashed #000;">
 
 
-                   
-                    
-                    <div class="tituloaudio">
-                        Cursor Alternativo Ages
-                    </div>
 
-                    <div class="audio-control">
-                        <div class="audio-label3">
-                            Ativar Cursor
-                            <hr style="border: 1px dashed #000;">
-                        </div>
-                        <label class="switch">
-                            <input id="cursor" type="checkbox" onchange="checkCursor()">
-                            <div class="click2 position-absolute end-0">
-                                <div class="circulo">
-                                    <svg class="cross" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 365.696 365.696" y="0" x="0" height="6" width="6" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <!-- Conteúdo do SVG para o cross -->
-                </svg>
-                                    <svg class="checkmark" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 24 24" y="0" x="0" height="10" width="10" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <!-- Conteúdo do SVG para o checkmark -->
-                </svg>
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="opcoes d-flex align-items-center justify-content-center">
+                        <div class="menu-opcoes">
+                            <div class="row ">
+
+                                <div class="col">
+
+                                    <div class="termos">
+
+
+
+
+
+                                        <div class="termosuso d-flex">
+                                            <div class="icone">
+
+                                                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                                                <i class="fa fa-file-text-o" style="font-size:15px"></i>
+                                            </div>
+                                            <div class="termosecondicoes">
+                                                <a asp-action="Termos" asp-controller="Home" asp-area="" class="termos"><nobr> Termos de Uso </nobr></a>
+                                            </div>
+
+
+                                        </div>
+
+
+
+
+                                        <div class="termosuso d-flex">
+                                            <div class="icone">
+
+                                                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                                                <i class="fa fa-file-text-o" style="font-size:15px"></i>
+                                            </div>
+                                            <div class="termosecondicoes">
+                                                <a asp-action="Privacidade" asp-controller="Home" asp-area="" class="termos"> <nobr>  Política de Privacidade  </nobr></a>
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </div>
                                 </div>
+
+
                             </div>
-                        </label>
-                    </div>
-
-                   
-                    
-                    
-                    
-
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <div class="termos">
-                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-                        <i class="fa fa-file-text-o" style="font-size:15px"></i>
-                        
-
-                       <div class="termosuso">
-                        <a asp-action="Termos" asp-controller="Home" asp-area="" class="termos">Termos de Serviço</a>
                         </div>
-
                     </div>
-
-
-
-
 
 
 
@@ -278,12 +342,10 @@
         </div>
     </div>
 
-    
-    
-    
-    
-    
-    
+
+
+
+
     
     
    
@@ -293,8 +355,10 @@
 </div>
 
 
-<div class="modal fade" id="comofunciona" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+
+
+<div class="modal fade " id="comofunciona" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog container opcoes d-flex align-items-center justify-content-center" style="height: 100vh;">
         <div class="modal-content test">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Seja Bem-Vindo e Tenha um Ótimo Jogo!</h1>
@@ -303,48 +367,50 @@
             <div class="modal-body">
                 <p>Explore o passado e descubra quando e onde momentos históricos foram testemunhados através de imagens que marcaram época. O <span style="color: #EB7EE1;">Ages</span> fará você adentrar no coração das fotografias, analisando detalhes e mergulhando a fundo na história moderna!</p>
                 <p class="fs-3">Seu objetivo é:</p>
-                <p class="objetivo">Fazer o máximo de pontos possível em um período de tempo.</p>
+                <p class="objetivo"> O desafio é escolher um modo de jogo, ser rápido e eficaz nas tentativas para maximizar sua pontuação final. </p>
                 <p class="fs-3">Pontuação:</p>
-                <div class="certo">
-                    <p>Local</p>
-                </div>
-                <div class="soma">+</div>
-                <div class="certo ano">
-                    <p>Ano</p>
-                </div>
-                <div class="igual">=</div>
-                <div class="pontuacao">
-                    <p class="fs-4"> 10 Pontos </p>
-                </div>
-
-                <div class="localerrado">
-                    <p>Local</p>
-                </div>
-                <div class="soma">+</div>
-                <div class="certo ano">
-                    <p>Ano</p>
-                </div>
-                <div class="igual">=</div>
-                <div class="pontuacao">
-                    <p class="fs-4"> 5 Pontos </p>
-                </div>
-
-                <div class="certo">
-                    <p>Local</p>
-                </div>
-                <div class="soma">+</div>
-                <div class="errado">
-                    <p>Ano</p>
-                </div>
-                <div class="igual">=</div>
-                <div class="pontuacao">
-                    <p class="fs-4"> 3 Pontos </p>
-                </div>
+                <p> Sua pontuação depende de seis fatores: o modo de jogo (sem tempo, fácil, médio ou difícil), o tempo gasto em cada rodada, o número de tentativas,e a divisão da pontuação total pelo número de rodadas.</p>
             </div>
         </div>
     </div>
 </div>
 
+</div>
+
+
+<div class="redes2 position-fixed bottom-0 end-0" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="contato">
+
+
+    <a class="ajuda">
+        ¿
+    </a>
+
+</div>
+
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog container opcoes d-flex align-items-center justify-content-center" style="height: 100vh;">
+        <div class="modal-content modalcontato">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Nova Mensagem</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Seu Email:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Sua Mensagem:</label>
+                        <textarea class="form-control" id="mensagem"></textarea>
+                    </div>
+                </form>
+            </div>
+            <button type="button" class="position-absolute bottom-0 start-50 translate-middle-x Botaoenviar" data-bs-dismiss="modal">Enviar</button>
+        </div>
+    </div>
+</div>
 
 
 

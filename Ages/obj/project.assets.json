@@ -7130,11 +7130,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\Ages.csproj",
+      "projectUniqueName": "C:\\Users\\gabza\\Desktop\\Ages\\Ages\\Ages.csproj",
       "projectName": "Ages",
-      "projectPath": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\Ages.csproj",
+      "projectPath": "C:\\Users\\gabza\\Desktop\\Ages\\Ages\\Ages.csproj",
       "packagesPath": "C:\\Users\\gabza\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\obj\\",
+      "outputPath": "C:\\Users\\gabza\\Desktop\\Ages\\Ages\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -50,39 +50,39 @@ body {
         opacity: 1;
     }
 }
+@media screen and (max-width: 599px) {
+    .grid-container {
+        grid-template-columns: auto;
+    }
+}
 
 .meio {
     box-shadow: 0 0 20px 20px rgba(0, 0, 0, 0.3), inset -100px -100px 100px 0 #00000086;
     box-shadow: 0 0 0 2px rgb(197, 49, 149), 0 0 0 6px rgb(12,29,135);
     background-color: white;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+
     border-radius: 50px;
     font-family: 'Righteous', sans-serif;
-    padding-right: 40px;
     height: fit-content;
     max-width: 1000px;
     width: 100%;
-
 }
 
 
 .titulo {
-    margin-left: 30px;
-    margin-top: 25px;
     user-select: none;
     pointer-events: none;
     font-size: 25px;
-    text-align:center
+    text-align: center;
+    height: 70px;
+      
 }
 
 
 
 .logo {
     width: 150px;
-   margin-left: auto;
+    margin-left: auto;
     margin-top: -60px;
     background-image: url(/Imagens/LOGO-AGES.png);
     background-size: 100%;
@@ -92,11 +92,8 @@ body {
 
 .sugestao {
     height: fit-content;
-    width: 400px;
+    width: 380px;
     margin: auto;
-  
-   
-    
 }
 
 
@@ -113,9 +110,7 @@ body {
     height: 400px;
     border: 1px solid rgb(0, 0, 0);
     resize: none;
-
-    
-
+    width: 95%;
 }
 
 #link {
@@ -123,24 +118,19 @@ body {
     border: 1px solid rgb(0, 0, 0);
     resize: none;
     margin-top: 33px;
-    
 }
 
 .canais {
     height: 150px;
-    width: 400px;
+    width: 100%;
     border: 1px solid rgb(0, 0, 0);
     text-align: justify;
     resize: none;
     padding: 5px;
     border-radius: 5px;
-    
-    
 }
 
 .textlink {
-    
-   
     height: 8px;
 }
 
@@ -150,6 +140,85 @@ body {
     .col {
         border-bottom: 2px solid gray;
         align-items: center;
-        
     }
 }
+
+.container-botao {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+
+    
+}
+
+.botao-enviar {
+    width: 150px;
+    height: 80px;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 22px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 6px 20px -5px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: #eb7fe2;
+}
+
+
+#btnText {
+    transition: 1s ease-in-out;
+}
+
+
+.check-box {
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    box-shadow: 0 0 12px -2px rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    right: -40px;
+    opacity: 0;
+}
+
+    .check-box svg {
+        width: 40px;
+        margin: 20px;
+    }
+
+svg path {
+    stroke-width: 3;
+    stroke: #fff;
+    stroke-dasharray: 34;
+    stroke-dashoffset: 34;
+    stroke-linecap: round;
+}
+
+.active {
+    background: #ff2b75;
+    transition: 1s;
+    width: 190px;
+}
+
+    .active .check-box {
+        right: 0;
+        opacity: 1;
+        transition: 1s;
+    }
+
+    .active #btnText {
+        margin-right: 125px;
+        transition: 1s;
+    }
+
+    .active svg path {
+        stroke-dashoffset: 0;
+        transition: 1s;
+        transition-delay: 1s;
+    }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "B4g6tTUH42yZYKmTXbzB2OGu3M1CwcluFGBKSROqv8M=",
+  "Hash": "epzZRG0HdezX9Af9kP1MboJgUkNaMXgxXSEZwEQiL7k=",
   "Source": "Ages",
   "BasePath": "_content/Ages",
   "Mode": "Default",
@@ -604,6 +604,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\Global\\setCookies.js"
+    },
+    {
+      "Identity": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\wwwroot\\js\\Global\\sw.js",
+      "SourceId": "Ages",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\wwwroot\\",
+      "BasePath": "_content/Ages",
+      "RelativePath": "js/Global/sw.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Global\\sw.js"
     },
     {
       "Identity": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\wwwroot\\js\\index.js",
@@ -1725,6 +1744,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\wwwroot\\Musicas\\Quiz.mp3",
+      "SourceId": "Ages",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\wwwroot\\",
+      "BasePath": "_content/Ages",
+      "RelativePath": "Musicas/Quiz.mp3",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Musicas\\Quiz.mp3"
     },
     {
       "Identity": "C:\\Users\\gabza\\Downloads\\Ages\\Ages\\wwwroot\\Musicas\\somdobotao.wav",

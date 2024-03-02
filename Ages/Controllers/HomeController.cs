@@ -84,7 +84,7 @@ namespace Ages.Controllers
         public async Task<IActionResult> Index()
         {
             // Definir a data de referência (por exemplo, a data de lançamento do jogo)
-            DateTime dataDeReferencia = new DateTime(2024, 2, 18); // Por exemplo, 17 de fevereiro de 2024
+            DateTime dataDeReferencia = new DateTime(2024, 2, 26); // Por exemplo, 17 de fevereiro de 2024
 
             // Calcular o número de dias desde a data de referência até hoje
             TimeSpan diasDesdeReferencia = DateTime.Today - dataDeReferencia;
@@ -132,14 +132,14 @@ namespace Ages.Controllers
         public async Task<List<JogoViewModel>> GetJogoDoDia(int numeroDoDia)
         {
 
-            var receivedCsrfToken = Request.Headers["X-CSRF-TOKEN"];
+            /*var receivedCsrfToken = Request.Headers["X-CSRF-TOKEN"];
 
             // Valide o token CSRF
             if (!ValidateCsrfToken(receivedCsrfToken))
             {
                 // Se a validação falhar, retorne um erro
                 throw new Exception("Falha na validação do token CSRF.");
-            }
+            }*/
             HttpContext.Session.Clear();
 
             // Construir a parte final da URL da API usando o número de dias

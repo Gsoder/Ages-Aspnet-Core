@@ -13,67 +13,53 @@
 
 
 <div class="meio container align-items-center">
-    <div class="row">
-        <h1 class="titulo fs-3">Ajude-nos a melhorar cada vez mais o AGES!</h1>
+    <div class="row justify-content-center align-content-center">
+        <div class="titulo fs-3">Ajude-nos a melhorar cada vez mais o AGES!</div>
     </div>
-    <div class="row d-flex align-items-center">
-        <div class="col ">
+    <div class="row justify-content-center">
+        <div class="col-lg-5" style="margin-bottom: 20px;">
             <div class="sugestao">
                 <label for="exampleFormControlTextarea1" class="form-label">Qual a sua Sugestão?</label>
                 <textarea class="form-control" id="mensagem" rows="3"></textarea>
-                
             </div>
-                 <div style="width:90%; margin:auto"> 
-            <div style="margin: auto; width: fit-content;"><button type="button" class="Botaoenviar">Enviar</button></div>
-                 </div>
+
         </div>
 
-        <div class="col ">
-          
-
-
-
+        <div class="col-lg" style="padding-right: 15px;">
             <p>Deixe a sua Marca no Ages! </p>
             <div class="canais">
-                Como jogador, você é fundamental para nós. Se quiser, compartilhe um pedaço da sua história
-                enviando fotos significativas que tenha encontrado ou capturado (não se esqueça de incluir o ano e o local). Apreciamos a sua participação!
-
-
+                Como jogador, você é fundamental para nós. Se quiser, compartilhe um pedaço da sua história enviando fotos significativas que tenha encontrado ou capturado (não se esqueça de incluir o ano e o local). Apreciamos a sua participação!
             </div>
             <div class="textlink">
                 <label for="message-text" class="col-form-label">Anexe o Link da sua Imagem:</label>
             </div>
-
-
             <textarea class="form-control" id="link" rows="3"></textarea>
-
-            <div style="width:90%; margin:auto">
-                <div style="margin: auto; width: fit-content;"><button type="button" class="Botaoenviar">Enviar</button></div>
+            <div class="d-flex justify-content-center">
+                <div class="container-botao">
+                    <button id="btn" class="botao-enviar">
+                        <div id="btnText">Enviar</div>
+                        <div class="check-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                                <path fill="transparent" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                            </svg>
+                        </div>
+                    </button>
+                </div>
             </div>
-          
-
-
-
         </div>
     </div>
-    
 
     <div class="texto container">
     </div>
-
-
-
-
-
-
-
-
-
-
-
 </div>
-    <div class="logo">
-    </div>
+<script>
+    const btn = document.querySelector("#btn");
+    const btnText = document.querySelector("#btnText");
+
+    btn.onclick = () => {
+        btnText.innerHTML = "Obrigado";
+        btn.classList.add("active");
+    };
 
 
-
+</script>

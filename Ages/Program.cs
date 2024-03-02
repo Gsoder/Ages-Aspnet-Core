@@ -46,16 +46,19 @@ app.Use(async (context, next) =>
     // Armazene o novo token na sessão
     context.Session.SetString("CSRF-TOKEN", tokens.RequestToken);
 
-    // Adicione o token CSRF apenas aos cookies se não estiverem presentes
-    if (!context.Request.Cookies.ContainsKey("CSRF-TOKEN"))
+    // Delete o cookie CSRF-TOKEN se estiver presente
+    if (context.Request.Cookies.ContainsKey("CSRF-TOKEN"))
     {
-        context.Response.Cookies.Append("CSRF-TOKEN", tokens.RequestToken, new CookieOptions
-        {
-            HttpOnly = false, // Impede acesso via JavaScript
-            Secure = true,   // Apenas em conexões HTTPS
-            SameSite = SameSiteMode.Strict // Previne ataques de CSRF entre sites
-        });
+        context.Response.Cookies.Delete("CSRF-TOKEN");
     }
+
+    // Adicione o token CSRF apenas aos cookies
+    context.Response.Cookies.Append("CSRF-TOKEN", tokens.RequestToken, new CookieOptions
+    {
+        HttpOnly = false, // Impede acesso via JavaScript
+        Secure = true,   // Apenas em conexões HTTPS
+        SameSite = SameSiteMode.Strict // Previne ataques de CSRF entre sites
+    });
 
     await next.Invoke();
 });

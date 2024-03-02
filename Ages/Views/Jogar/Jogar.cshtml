@@ -2,6 +2,8 @@
 <link rel="stylesheet" href="~/css/Jogar/index.css" />
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script src="~/js/Jogar/index.js"></script>
+
+
 @using (Html.BeginForm("Index", "Home", FormMethod.Get))
 {
     <button class="Btn">
@@ -23,43 +25,37 @@
     </div>
 </div> *@
 <div class="overlay">
-    <div class="wrapper">
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="shadow"></div>
-        <div class="shadow"></div>
-        <div class="shadow"></div>
-        <span>Loading</span>
-    </div>
 </div>
 
-<div id="container-jogo" class="container d-flex justify-content-center">
-    @* commit 2.0 *@
+<div id="container-jogo" class="container-fluid d-flex justify-content-center align-items-center">
+    <!-- Seu conteúdo existente -->
 
- 
-        <div id="fixado" style="margin-top: 250px">
-            <button class="pass">
-                <svg height="2em" class="arrow" viewBox="0 0 512 512"><path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"></path></svg>
+    <div id="fixado" class="botao-esqurda">
+        <button class="pass">
+            <svg height="2em" class="arrow" viewBox="0 0 512 512">
+                <path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"></path>
+            </svg>
+        </button>
+    </div>
 
-            </button>
-        </div>
 
 
 
-    
+
+
 
     <div class="jogo">
-        <div id="timer" class="timer"></div>
+        @* <div id="timer" class="timer"></div> *@
         <img class="imagem" src="@Model.ViewModel[0].Imagem" />
     </div>
 
-        <div id="fixado2" style="margin-top: 250px">
-            <button class="pass2">
-                <svg height="2em" class="arrow2" viewBox="0 0 512 512"><path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"></path></svg>
+    <div id="fixado2" class="botao-direito">
+        <button class="pass2">
+            <svg height="2em" class="arrow2" viewBox="0 0 512 512"><path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"></path></svg>
 
-            </button>
-        </div>
+        </button>
+    </div>
+
 
 
 </div>
@@ -146,11 +142,88 @@
 </div> *@
 
 
+<div class="timer ">
+    <div class="timer--clock d-flex justify-content-center">
+        <div class="minutes-group clock-display-grp  d-flex justify-content-center">
+            <div class="first number-grp  d-flex justify-content-center">
+                <div class="number-grp-wrp">
+                    <div class="num num-0"><p>0</p></div>
+                    <div class="num num-1"><p>1</p></div>
+                    <div class="num num-2"><p>2</p></div>
+                    <div class="num num-3"><p>3</p></div>
+                    <div class="num num-4"><p>4</p></div>
+                    <div class="num num-5"><p>5</p></div>
+                    <div class="num num-6"><p>6</p></div>
+                    <div class="num num-7"><p>7</p></div>
+                    <div class="num num-8"><p>8</p></div>
+                    <div class="num num-9"><p>9</p></div>
+                </div>
+            </div>
+            <div class="second number-grp">
+                <div class="number-grp-wrp">
+                    <div class="num num-0"><p>0</p></div>
+                    <div class="num num-1"><p>1</p></div>
+                    <div class="num num-2"><p>2</p></div>
+                    <div class="num num-3"><p>3</p></div>
+                    <div class="num num-4"><p>4</p></div>
+                    <div class="num num-5"><p>5</p></div>
+                    <div class="num num-6"><p>6</p></div>
+                    <div class="num num-7"><p>7</p></div>
+                    <div class="num num-8"><p>8</p></div>
+                    <div class="num num-9"><p>9</p></div>
+                </div>
+            </div>
+        </div>
+        <div class="clock-separator"><p>:</p></div>
+        <div class="seconds-group clock-display-grp  d-flex justify-content-center">
+            <div class="first number-grp">
+                <div class="number-grp-wrp">
+                    <div class="num num-0"><p>0</p></div>
+                    <div class="num num-1"><p>1</p></div>
+                    <div class="num num-2"><p>2</p></div>
+                    <div class="num num-3"><p>3</p></div>
+                    <div class="num num-4"><p>4</p></div>
+                    <div class="num num-5"><p>5</p></div>
+                    <div class="num num-6"><p>6</p></div>
+                    <div class="num num-7"><p>7</p></div>
+                    <div class="num num-8"><p>8</p></div>
+                    <div class="num num-9"><p>9</p></div>
+                </div>
+            </div>
+            <div class="second number-grp">
+                <div class="number-grp-wrp">
+                    <div class="num num-0"><p>0</p></div>
+                    <div class="num num-1"><p>1</p></div>
+                    <div class="num num-2"><p>2</p></div>
+                    <div class="num num-3"><p>3</p></div>
+                    <div class="num num-4"><p>4</p></div>
+                    <div class="num num-5"><p>5</p></div>
+                    <div class="num num-6"><p>6</p></div>
+                    <div class="num num-7"><p>7</p></div>
+                    <div class="num num-8"><p>8</p></div>
+                    <div class="num num-9"><p>9</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="reload">
+    <svg><!-- Ícone de recarregar --></svg>
+    <p>Reload</p>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+
+
+<div class="timer-container">
+    
+    <div class="timer-barra"></div>
+</div>
 
 
 
-    <script>
+<script>
 
-        var dificuldade = @Model.Dificuldade;
+    var dificuldade = @Model.Dificuldade;
 
-    </script>
+</script>

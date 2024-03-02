@@ -1,4 +1,10 @@
-﻿body {
+﻿:root {
+    --maincolor: rgb(197, 49, 149);
+    --secundarycolor: rgb(12,29,135);
+}
+
+
+body {
     
     background-image: url(../Imagens/fundo-alternativo.png);
  
@@ -12,4 +18,3 @@
 .custom-cursor a {
     cursor: url('../Imagens/cursor.cur'), auto !important;
 }
-

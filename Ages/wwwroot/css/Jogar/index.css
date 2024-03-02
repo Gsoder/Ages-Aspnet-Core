@@ -20,7 +20,7 @@ body {
     transform: rotate(-90deg) scale(1, 1);
     margin-top: 20px;
     margin-left: 20px;
-    box-shadow: 0 0 0 2px rgb(12,29,135);
+    box-shadow: 0 0 0 2px var(--secundarycolor);
     z-index: 999;
 }
 
@@ -29,14 +29,6 @@ body {
 }
 
 
-.Btn:hover .text {
-    opacity: 1;
-    transition-duration: .7s;
-}
-
-.Btn:hover .arrow {
-    animation: slide-in-bottom .7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-}
 
 @keyframes slide-in-bottom {
     0% {
@@ -50,419 +42,512 @@ body {
     }
 }
 
+#container-jogo {
+    height: auto; /* Define a altura como automática para que o contêiner ajuste seu tamanho de acordo com o conteúdo */
+}
 
 
 .jogo {
+    display: flex; /* Torna o container um flex container */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
     box-shadow: 0 0 20px 20px rgba(0, 0, 0, 0.3), inset -100px -100px 100px 0 #00000086;
-    box-shadow: 0 0 0 2px rgb(197, 49, 149), 0 0 0 6px rgb(12,29,135);
+    box-shadow: 0 0 0 2px rgb(197, 49, 149), 0 0 0 6px var(--secundarycolor);
     background-color: white;
     position: relative;
-   
     border-radius: 50px;
     font-family: 'Righteous', sans-serif;
-
-    height: 530px;
-    width: 900px;
+    height: auto; /* Define a altura como automática para ajustar ao tamanho da imagem */
     max-width: 100%;
- 
-}
-.jogo img {
-        width: 100%;
-        height: 100%;
-
-        
+    max-height: 450px; /* Define o máximo de altura da imagem */
+    width: fit-content; /* Define a largura da div como 100% */
+    overflow: hidden; /* Garante que o conteúdo excedente seja oculto */
 }
 
-@media (max-width: 570px) {
-    .jogo {
-        width: 100%; /* Garante que o container ocupe toda a largura disponível */
-        height: auto; /* Define a altura como automática para manter a proporção da imagem */
-        max-width: 900px; /* Define a largura máxima */
+    .jogo img {
+        margin: auto; /* Remove margem adicionada automaticamente */
+        border-radius: 50px;
+        max-width: 600px; /* Define a largura máxima da imagem */
+        height: auto; /* Ajusta automaticamente a altura da imagem */
+        width: 100%; /* Garante que a imagem ocupe toda a largura da div */
     }
 
-        .jogo img {
-            width: 100%; /* Garante que a imagem ocupe toda a largura do container */
-            height: auto; /* Define a altura como automática para manter a proporção */
-            max-width: 100%; /* Garante que a imagem não ultrapasse os limites do container */
-            max-height: 100%; /* Garante que a imagem não ultrapasse os limites do container */
-        }
-}
 
 
-@media (max-width: 790px) {
-    .pass,
-    .pass2 {
-        height: fit-content !important;
-    }
+/*@media (max-width: 570px) {
 
-   
-}
-
-@media (max-width: 570px) {
 
     .timer {
         transform: scale(0.7);
         margin-right: -35px;
     }
+
+
+}*/
+
+
+
+
+@media (max-width: 620px) {
+    .pass, .pass2 {
+        height: fit-content !important;
+    }
+    .botao-esqurda {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        margin-bottom: 50px; /* Ajuste essa margem conforme necessário */
+        z-index: 999;
+    }
+
+    .botao-direito {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        margin-bottom: 50px; /* Ajuste essa margem conforme necessário */
+        z-index: 999;
+    }
+
+    .jogo {
+        height: auto;
+        max-width: 900px;
+        max-height: 400px !important;
+    }
+
+        .jogo img {
+            height: auto;
+            max-width: 100%;
+            max-height: 400px !important;
+        }
+
+
    
 }
 
 
 
 
-.imagem {
-    border-radius: 50px !important;
-}
 
-
-.alerta {
-    width: 300px;
-    height: 100px;
-    position: fixed !important;
-     margin: 15px;
-     z-index: 999;
-     display: none !important;
-}
-
-
-
-
-datalist {
-
-    z-index: 999 !important;
-    
-
-}
-
-
-
-
-.botaoo {
-
-    width: fit-content;
-
- 
-
-}
-
-
-
-
-.avancar {
-    --clr-font-main: hsla(0, 0%, 20%, 1);
-    --btn-bg-1: hsl(135.35deg 62.77% 37.56%);
-    --btn-bg-2: hsl(92.2deg 68.13% 49.3%);
-    --btn-bg-color: hsla(0, 0%, 20%, 1);
-    --radii: 0.5em;
-    cursor: pointer;
-    padding: 0.9em 1.4em;
-    min-width: 100px;
-    min-height: 30px;
-    font-size: var(--size, 1rem);
-    font-family: 'Righteous', sans-serif;
-    font-weight: 500;
-    transition: 0.8s;
-    background-size: 280% auto;
-    background-image: linear-gradient(325deg, var(--btn-bg-2) 0%, var(--btn-bg-1) 55%, var(--btn-bg-2) 90%);
-    border: none;
-    border-radius: 30px;
-    color: var(--btn-bg-color);
-
-}
-
-    .avancar:hover {
-        background-position: right top;
+    .textos {
+        font-family: 'Righteous', sans-serif;
+        font-size: 20px;
+        color: white;
     }
 
-    .avancar:is(:focus, :focus-visible, :active) {
-        outline: none;
-        
+    .inputs {
+        margin-top: -18px;
+        border-radius: 100px;
     }
 
-@media (prefers-reduced-motion: reduce) {
-    .avancar {
-        transition: linear;
-    }
-}
-
-
-
-
-.textos {
-    font-family: 'Righteous', sans-serif;
-    font-size: 20px;
-    color: white;
-}
-
-.inputs {
-    margin-top: -18px;
-    border-radius: 100px;
-    
-}
-
-.row {
-
-    margin-top: 35px;
-
-}
-
-
-.col2 {
-
-    width: 160px;
-
-}
-#fixado{
-    z-index: 215 !important;
-
-}
-
-.timer {
-    width: 250px;
-    height: 250px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: -75px;
-}
-
-
-.path--background {
-    fill: #C57ED9;
-    stroke: #fff;
-    stroke-width: 0px;
-    background-color: white !important;
-}
-
-.pulse {
-    fill: rgb(255, 74, 74) !important;
-}
-
-.path--foreground {
-    fill: #eee;
-    stroke: #eee;
-    stroke-width: 2px;
-}
-
-.label {
-    font-weight: 900;
-    text-anchor: middle;
-    fill: #C57ED9;
-    font: 40px'Righteous', sans-serif;
-}
-.pass {
-    width: 100px;
-    height: 40px;
-    background: linear-gradient(rgba(235, 127, 226, 0.3), rgba(197, 49, 149, 0.3));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 25px;
-    cursor: pointer;
-    position: relative;
-    border: none;
-    transform: rotate(-90deg) scale(1, 1);
-
-    z-index: 777;
-}
-
-.arrow path {
-    fill: white;
-}
-
-
-.pass:hover .text {
-    opacity: 1;
-    transition-duration: .7s;
-}
-
-.pass:hover .arrow {
-    animation: slide-in-bottom .7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-}
-
-@keyframes slide-in-bottom {
-    0% {
-        transform: translateY(10px);
-        opacity: 0;
+    .row {
+        margin-top: 35px;
     }
 
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
 
-
-
-.pass2 {
-    width: 100px;
-    height: 40px;
-    background: linear-gradient(rgba(235, 127, 226, 0.3), rgba(197, 49, 149, 0.3));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 25px;
-    cursor: pointer;
-    position: relative;
-    border: none;
-    transform: rotate(90deg);
-    z-index: 77;
-}
-
-.arrow2 path {
-    fill: white;
-}
-
-
-.pass2:hover .text {
-    opacity: 1;
-    transition-duration: .7s;
-}
-
-.pass2:hover .arrow2 {
-    animation: slide-in-bottom .7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-}
-
-@keyframes slide-in-bottom {
-    0% {
-        transform: translateY(10px);
-        opacity: 0;
+    .col2 {
+        width: 160px;
     }
 
-    100% {
-        transform: translateY(0);
-        opacity: 1;
+    #fixado {
+        z-index: 215 !important;
     }
-}
 
-.overlay {
+
+.timer-container {
     position: fixed;
-    top: 0;
+    bottom: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background-image: url(../../Imagens/fundo-alternativo.png); /* imagem de fundo */
-    background-size: cover; /* ajustar o tamanho da imagem */
-    background-position: center; /* centralizar a imagem */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 998; /* garante que o overlay esteja acima de todos os outros elementos */
-    opacity: 0; /* definir a opacidade inicial */
-    transition: opacity 0.5s ease, visibility 0s linear 0.5s; /* adicionar transição para a opacidade */
-    visibility: hidden; /* ocultar o overlay sem afetar a transição de opacidade */
+    height: 10px;
+    background-color: var(--secundarycolor);
+    z-index: 999;
 }
 
-    .overlay.fade-out {
+.timer-barra {
+    height: 100%; /* Ajuste a altura para ocupar a altura da div pai */
+    background-color: var(--maincolor); /* cor do timer */
+    transition: width 0.3s ease;
+    border-radius: 25px;
+}
+
+
+
+
+    .path--background {
+        fill: #C57ED9;
+        stroke: #fff;
+        stroke-width: 0px;
+        background-color: white !important;
+    }
+
+    .pulse {
+        fill: rgb(255, 74, 74) !important;
+    }
+
+    .path--foreground {
+        fill: #eee;
+        stroke: #eee;
+        stroke-width: 2px;
+    }
+
+    .label {
+        font-weight: 900;
+        text-anchor: middle;
+        fill: #C57ED9;
+        font: 40px'Righteous', sans-serif;
+    }
+
+    .pass {
+        width: 100px;
+        height: 40px;
+        background: linear-gradient(rgba(235, 127, 226, 0.3), rgba(197, 49, 149, 0.3));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 25px;
+        cursor: pointer;
+        position: relative;
+        border: none;
+        transform: rotate(-90deg) scale(1, 1);
+        z-index: 777;
+    }
+
+    .arrow path {
+        fill: white;
+    }
+
+
+    .pass:hover .text {
         opacity: 1;
-        transition: opacity 0.5s ease; 
-        visibility: visible
+        transition-duration: .7s;
+    }
+
+    .pass:hover .arrow {
+        animation: slide-in-bottom .7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    }
+
+    @keyframes slide-in-bottom {
+        0% {
+            transform: translateY(10px);
+            opacity: 0;
+        }
+
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
     }
 
 
 
-.wrapper {
-    width: 200px;
-    height: 60px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.circle {
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    border-radius: 50%;
-    background-color: #fff;
-    left: 15%;
-    transform-origin: 50%;
-    animation: circle .5s alternate infinite ease;
-}
-
-@keyframes circle {
-    0% {
-        top: 60px;
-        height: 5px;
-        border-radius: 50px 50px 25px 25px;
-        transform: scaleX(1.7);
+    .pass2 {
+        width: 100px;
+        height: 40px;
+        background: linear-gradient(rgba(235, 127, 226, 0.3), rgba(197, 49, 149, 0.3));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 25px;
+        cursor: pointer;
+        position: relative;
+        border: none;
+        transform: rotate(90deg);
+        z-index: 77;
     }
 
-    40% {
+    .arrow2 path {
+        fill: white;
+    }
+
+
+    .pass2:hover .text {
+        opacity: 1;
+        transition-duration: .7s;
+    }
+
+    .pass2:hover .arrow2 {
+        animation: slide-in-bottom .7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    }
+
+    @keyframes slide-in-bottom {
+        0% {
+            transform: translateY(10px);
+            opacity: 0;
+        }
+
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url(../../Imagens/fundo-alternativo.png); /* imagem de fundo */
+        background-size: cover; /* ajustar o tamanho da imagem */
+        background-position: center; /* centralizar a imagem */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 998; /* garante que o overlay esteja acima de todos os outros elementos */
+        opacity: 0; /* definir a opacidade inicial */
+        transition: opacity 0.5s ease, visibility 0s linear 0.5s; /* adicionar transição para a opacidade */
+        visibility: hidden; /* ocultar o overlay sem afetar a transição de opacidade */
+    }
+
+        .overlay.fade-out {
+            opacity: 1;
+            transition: opacity 0.5s ease;
+            visibility: visible
+        }
+
+
+
+    .wrapper {
+        width: 200px;
+        height: 60px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .circle {
+        width: 20px;
         height: 20px;
+        position: absolute;
         border-radius: 50%;
-        transform: scaleX(1);
+        background-color: #fff;
+        left: 15%;
+        transform-origin: 50%;
+        animation: circle .5s alternate infinite ease;
     }
 
-    100% {
-        top: 0%;
+    @keyframes circle {
+        0% {
+            top: 60px;
+            height: 5px;
+            border-radius: 50px 50px 25px 25px;
+            transform: scaleX(1.7);
+        }
+
+        40% {
+            height: 20px;
+            border-radius: 50%;
+            transform: scaleX(1);
+        }
+
+        100% {
+            top: 0%;
+        }
     }
+
+    .circle:nth-child(2) {
+        left: 45%;
+        animation-delay: .2s;
+    }
+
+    .circle:nth-child(3) {
+        left: auto;
+        right: 15%;
+        animation-delay: .3s;
+    }
+
+    .shadow {
+        width: 20px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: rgba(0,0,0,.5);
+        position: absolute;
+        top: 62px;
+        transform-origin: 50%;
+        z-index: -1;
+        left: 15%;
+        filter: blur(1px);
+        animation: shadow .5s alternate infinite ease;
+    }
+
+    @keyframes shadow {
+        0% {
+            transform: scaleX(1.5);
+        }
+
+        40% {
+            transform: scaleX(1);
+            opacity: .7;
+        }
+
+        100% {
+            transform: scaleX(.2);
+            opacity: .4;
+        }
+    }
+
+    .shadow:nth-child(4) {
+        left: 45%;
+        animation-delay: .2s
+    }
+
+    .shadow:nth-child(5) {
+        left: auto;
+        right: 15%;
+        animation-delay: .3s;
+    }
+
+    .wrapper span {
+        position: absolute;
+        top: 75px;
+        font-family: "Righteous", sans-serif;
+        font-size: 20px;
+        letter-spacing: 12px;
+        color: #fff;
+        left: 15%;
+    }
+
+    .correto {
+        background-color: #A1FF9F !important;
+        border: 1px solid black;
+    }
+
+@media (max-width: 570px) {
+
+    .timer {
+        transform: scale(0.7);
+        margin-bottom: 5px !important;
+    }
+
 }
 
-.circle:nth-child(2) {
-    left: 45%;
-    animation-delay: .2s;
-}
 
-.circle:nth-child(3) {
-    left: auto;
-    right: 15%;
-    animation-delay: .3s;
-}
-
-.shadow {
-    width: 20px;
-    height: 4px;
-    border-radius: 50%;
-    background-color: rgba(0,0,0,.5);
+.timer {
     position: absolute;
-    top: 62px;
-    transform-origin: 50%;
-    z-index: -1;
-    left: 15%;
-    filter: blur(1px);
-    animation: shadow .5s alternate infinite ease;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-bottom: 10px;
+    width: 300px;
+    height: 150px;
+    color: white;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+    border-top: 5px solid transparent; /* Define a largura do border-top */
+    border-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,0,255,0.3)) 1; /* Cria um gradiente para o border-top com fade transparente e azul */
 }
 
-@keyframes shadow {
-    0% {
-        transform: scaleX(1.5);
+
+
+    .timer * {
+        cursor: default;
     }
 
-    40% {
-        transform: scaleX(1);
-        opacity: .7;
+    .timer h3 {
+        width: 100%;
+        font-size: 26px;
+        letter-spacing: 4px;
+        text-align: center;
     }
 
-    100% {
-        transform: scaleX(.2);
-        opacity: .4;
+.timer--clock {
+    width: 100%;
+    position: relative;
+    padding-left: 6px;
+    margin-top: 22px;
+    overflow: hidden;
+}
+
+    .timer--clock .clock-display-grp {
+        width: 100%;
+        position: relative;
     }
+
+        .timer--clock .clock-display-grp .number-grp {
+            width: auto;
+            display: block;
+            height: 156px;
+            float: left;
+            overflow: hidden;
+        }
+
+            .timer--clock .clock-display-grp .number-grp .number-grp-wrp {
+                width: 100%;
+                position: relative;
+            }
+
+                .timer--clock .clock-display-grp .number-grp .number-grp-wrp .num {
+                    width: 100%;
+                    position: relative;
+                    height: 156px;
+                }
+
+                    .timer--clock .clock-display-grp .number-grp .number-grp-wrp .num p {
+                        width: auto;
+                        display: table;
+                        font-size: 100px;
+                        line-height: 150px;
+                        font-weight: bold;
+                    }
+
+    .timer--clock .clock-separator {
+        width: auto;
+        float: left;
+        display: block;
+        height: 156px;
+    }
+
+        .timer--clock .clock-separator p {
+            width: auto;
+            display: table;
+            font-size: 100px;
+            line-height: 150px;
+            font-weight: bold;
+        }
+
+.timer h4 {
+    width: 100%;
+    font-size: 10px;
+    letter-spacing: 6px;
+    text-align: center;
+    padding-top: 25px;
+    float: left;
 }
 
-.shadow:nth-child(4) {
-    left: 45%;
-    animation-delay: .2s
-}
-
-.shadow:nth-child(5) {
-    left: auto;
-    right: 15%;
-    animation-delay: .3s;
-}
-
-.wrapper span {
+.reload {
+    width: 125px;
+    height: 14px;
     position: absolute;
-    top: 75px;
-    font-family: "Righteous", sans-serif;
-    font-size: 20px;
-    letter-spacing: 12px;
-    color: #fff;
-    left: 15%;
+    bottom: 50vh;
+    left: 50%;
+    margin-left: -62.5px;
+    opacity: 0;
+    display: none;
+    cursor: pointer;
+    z-index: 9999;
 }
 
-.correto {
-    background-color: #A1FF9F !important;
-    border: 1px solid black;
-}
+    .reload:hover svg path {
+        fill: #666;
+    }
+
+    .reload:hover p {
+        color: #666;
+    }
+
+    .reload svg {
+        width: 12px;
+        height: 12px;
+        float: left;
+        margin-right: 10px;
+    }
+
+    .reload p {
+        color: #2b2b2b;
+        font-size: 12px;
+        float: left;
+        line-height: 11px;
+    }

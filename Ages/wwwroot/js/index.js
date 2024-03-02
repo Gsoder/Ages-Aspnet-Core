@@ -1,11 +1,78 @@
-﻿document.addEventListener('DOMContentLoaded', function () {
+﻿
+document.addEventListener('DOMContentLoaded', function () {
+    
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register(window.location.origin + "/js/Global/sw.js").then(function (registration) {
+            console.log('Service Worker registrado com sucesso:', registration);
+        }).catch(function (error) {
+            console.log('Registro do Service Worker falhou:', error);
+        });
+
+        // Adicionando o código para desregistrar todos os Service Workers
+        navigator.serviceWorker.getRegistrations().then(function (registrations) {
+            for (let registration of registrations) {
+                registration.unregister();
+            }
+        });
+    }
+
+
     var defaultOption = document.getElementById('tickmarks').getElementsByTagName('option')[0].innerHTML;
     document.getElementById('selectedOptionText').innerHTML = defaultOption;
     document.querySelector('.rangedificuldade').value = 0;
     var isDragging = false;
     var startY, containerScrollTop;
+    var termsAccepted = getCookie("termsAccepted");
+    if (termsAccepted === "") {
+        var botao = document.getElementById("botao-entrar")
+        var loading = document.getElementById("loading")
+        botao.style.display = 'block';
+        loading.style.display = 'none';
+
+    } else {
+        var overlay = document.querySelector('.overlay');
+
+        // Adicionar a classe 'fade-out' imediatamente após o carregamento da tela
+        overlay.classList.add('fade-out');
+
+        // Remover o overlay após a conclusão do efeito de fade-out
+        overlay.addEventListener('transitionend', function () {
+            overlay.style.display = 'none';
+        });
+
+    }
+
+    
+    
 
 
+    document.getElementById("btn-termo").addEventListener("click", function () {
+        var overlay = document.querySelector('.overlay');
+
+        // Adicionar um atraso de 2 segundos (2000 milissegundos)
+        setTimeout(function () {
+            overlay.classList.add('fade-out');
+
+            // Remover o overlay após a conclusão do efeito de fade-out
+            overlay.addEventListener('transitionend', function () {
+                overlay.style.display = 'none';
+            });
+        }, 2500);
+
+        const btn = document.querySelector("#btn-termo");
+        const btnText = document.querySelector("#btnText");
+
+        // Adicionar um pequeno atraso antes de alterar o botão
+        setTimeout(function () {
+            btnText.innerHTML = "Bom Jogo!";
+            btn.classList.add("active");
+
+            // Salvar nos cookies que os termos foram aceitos
+            document.cookie = "termsAccepted=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+        }, 100); // Ajuste este valor conforme necessário
+    });
+
+    
 
     $("#Jogosanteriores").mousedown(function (e) {
         isDragging = true;
@@ -52,19 +119,14 @@
 
 
 });
-window.addEventListener('load', function () {
-    // Quando a página estiver totalmente carregada, adicionar a classe fade-out à overlay
-    var overlay = document.querySelector('.overlay');
-    overlay.classList.add('fade-out');
-
-    // Remover o overlay após a conclusão do efeito de fade-out
-    overlay.addEventListener('transitionend', function () {
-        overlay.style.display = 'none';
-    });
-});
 
 
 
+
+function loadView(viewName) {
+    var worker = new Worker('worker.js');
+    worker.postMessage({ action: 'loadView', viewName: viewName });
+}
 
 
 function selecionarDia(numeroDia) {

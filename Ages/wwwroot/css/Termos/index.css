@@ -1,10 +1,5 @@
-﻿
-body {
-    background-color: #313354 !important;
-    background-image: none !important;
-}
-* {
-    border: 2px solid red !important;
+﻿body {
+    background: linear-gradient( #39386d, #24233f);
 }
 
 .Btn {
@@ -31,16 +26,12 @@ body {
 
 .logo {
     width: 180px;
-    margin-left: auto;
-    margin-right: 20px;
-    margin-top: 10px;
+    margin: 10px;
     background-image: url(/Imagens/LOGO-AGES.png);
     background-size: 100%;
     height: 250px;
     background-repeat: no-repeat;
-   
     z-index: 1 !important;
-    
 }
 
 
@@ -56,65 +47,29 @@ body {
 
 .termos {
     text-align: justify;
-    
-   z-index: 999;
+    z-index: 999;
     margin-top: 20px;
     user-select: none;
     pointer-events: none;
     color: white;
-
 }
 
-#titulo-politica {
+
+
+
+
+.titulo {
     font-size: 40px;
     color: white;
     margin-bottom: 20px
 }
 
-#explicacao-politica {
+.explicacao {
     font-family: 'Roboto Condensed', sans-serif;
     color: white;
     letter-spacing: 0;
     line-height: 30px;
     opacity: 90%;
-}
-
-
-
-
-#secao1-titulo {
-    font-size: 40px;
-    color: white;
-    margin-bottom: 20px;
-    margin-top: 10px;
-}
-
-
-#explicaosecao1pt1 {
-    font-family: 'Roboto Condensed', sans-serif;
-    color: white;
-    letter-spacing: 0;
-    line-height: 30px;
-    opacity: 90%;
-}
-
-
-
-#explicaosecao1pt2 {
-    font-family: 'Roboto Condensed', sans-serif;
-    color: white;
-    letter-spacing: 0;
-    line-height: 30px;
-    opacity: 90%;
-    display: block;
-    margin-top: 10px;
-}
-
-#secao2-titulo {
-    font-size: 40px;
-    color: white;
-    margin-bottom: 20px;
-    margin-top: 10px;
 }
 
 
@@ -130,6 +85,84 @@ body {
         transform: translateY(0);
         opacity: 1;
     }
-    
-
 }
+
+
+span {
+    color: #eb7fe2;
+    font-size: 18px
+}
+
+
+
+@media (max-width: 570px) {
+
+    .logo {
+        transform: scale(0.5);
+        position: fixed; /* Para manter a logo fixa na tela */
+        margin-top: -60px;
+        margin-right: -40px;
+    }
+
+    .titulo {
+        font-size: 30px;
+        margin: 10px;
+    }
+
+    .explicacao {
+    }
+
+    .circle {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        border-radius: 50%;
+        background-color: #fff;
+        left: 15%;
+        transform-origin: 50%;
+        animation: circle .5s alternate infinite ease;
+    }
+
+    @keyframes circle {
+        0% {
+            top: 60px;
+            height: 5px;
+            border-radius: 50px 50px 25px 25px;
+            transform: scaleX(1.7);
+        }
+
+        40% {
+            height: 20px;
+            border-radius: 50%;
+            transform: scaleX(1);
+        }
+
+        100% {
+            top: 0%;
+        }
+    }
+
+    .circle:nth-child(2) {
+        left: 45%;
+        animation-delay: .2s;
+    }
+
+    .circle:nth-child(3) {
+        left: auto;
+        right: 15%;
+        animation-delay: .3s;
+    }
+
+    .shadow {
+        width: 20px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: rgba(0,0,0,.5);
+        position: absolute;
+        top: 62px;
+        transform-origin: 50%;
+        z-index: -1;
+        left: 15%;
+        filter: blur(1px);
+        animation: shadow .5s alternate infinite ease;
+    }
