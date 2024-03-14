@@ -3,6 +3,8 @@ using Ages.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Antiforgery;
+using Ages.Repositorio.Interface;
+using Newtonsoft.Json;
 
 namespace Ages.Controllers
 {
@@ -10,11 +12,13 @@ namespace Ages.Controllers
     {
         private readonly ILogger<JogarController> _logger;
         private readonly IAntiforgery _antiforgery;
+        private readonly IJogoService _jogoService;
 
-        public JogarController(ILogger<JogarController> logger, IAntiforgery antiforgery)
+        public JogarController(ILogger<JogarController> logger, IAntiforgery antiforgery, IJogoService jogoService)
         {
             _logger = logger;
             _antiforgery = antiforgery;
+            _jogoService = jogoService;
         }
 
         private int IndiceAtual
@@ -37,22 +41,127 @@ namespace Ages.Controllers
             return string.Equals(receivedCsrfToken, storedCsrfToken, StringComparison.Ordinal);
         }
 
-        public IActionResult Jogar(int dificuldade)
+        public IActionResult Jogar(int? dificuldade, int? dia)
         {
+            if (!dificuldade.HasValue)
+            {
+                var errorModel = new ErrorViewModel("Por favor, selecione uma dificuldade.");
+                return View("Error", errorModel);
+            }
+
+            List<JogoViewModel> apiResponseImg;
+
+            if (!dia.HasValue)
+            {
+                var imagensDaSessao = HttpContext.Session.GetString("JsonResponseImagens");
+                if (imagensDaSessao != null)
+                {
+                    // Aqui você pode converter o imagensDaSessao de volta para o tipo original e usá-lo
+                    apiResponseImg = JsonConvert.DeserializeObject<List<JogoViewModel>>(imagensDaSessao);
+                }
+                else
+                {
+                    var errorModel = new ErrorViewModel("Por favor, selecione um dia.");
+                    return View("Error", errorModel);
+                }
+            }
+            else
+            {
+                apiResponseImg = _jogoService.GetJogoDoDia(dia.Value).Result;
+            }
+
             HttpContext.Session.SetInt32("IndiceAtual", 0);
             HttpContext.Session.SetInt32("NumeroDeTentativas", 0);
             HttpContext.Session.Remove("Dificuldade");
-            // Armazena a dificuldade na sessão
-            HttpContext.Session.SetInt32("Dificuldade", dificuldade);
+            HttpContext.Session.SetInt32("Dificuldade", dificuldade.Value);
 
-            var apiResponseImg = HttpContext.Session.Get<List<JogoViewModel>>("JsonResponseImagens");
-            var model = new DificuldadeViewModel { Dificuldade = dificuldade, ViewModel = apiResponseImg };
+            var model = new DificuldadeViewModel { Dificuldade = dificuldade.Value, ViewModel = apiResponseImg };
             return View(model);
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> NavegarImagem(string direcao, int indice)
+        {
+            try
+            {
+                var indiceAtual = indice;
+                var apiResponseImg = HttpContext.Session.Get<List<JogoViewModel>>("JsonResponseImagens");
+
+                // Recupera os dados da pontuação do usuário da sessão
+                PontuaçãoUsuarioViewModel pontuacao = HttpContext.Session.Get<PontuaçãoUsuarioViewModel>("PontuacaoUsuario");
+
+                // Se pontuacao for nulo, instancie-o
+                if (pontuacao == null)
+                {
+                    pontuacao = new PontuaçãoUsuarioViewModel
+                    {
+                        Id = 1,
+                        RodadaDados = new List<AcertosImagemViewModel>()
+                    };
+                }
+
+                AcertosImagemViewModel acertosImagemAtual = null;
+                JogoViewModel imagem = null;
+                bool imagemValidaEncontrada = false;
+                while (!imagemValidaEncontrada)
+                {
+                    if (direcao == "anterior" && indiceAtual > 0)
+                    {
+                        indiceAtual--;
+                    }
+                    else if (direcao == "proxima" && indiceAtual < apiResponseImg.Count - 1)
+                    {
+                        indiceAtual++;
+                    }
+                    else
+                    {
+                        return Json(new { error = "Você já está na " + (direcao == "anterior" ? "primeira" : "última") + " imagem." });
+                    }
+
+                    AtualizarIndiceAtual(indiceAtual);
+                    imagem = ObterImagemAtual(apiResponseImg);
+
+                    // Procura na lista RodadaDados o objeto AcertosImagemViewModel correspondente à imagem atual
+                    acertosImagemAtual = pontuacao.RodadaDados.Find(a => a.Id == imagem.Id);
+
+                    // Se o objeto AcertosImagemViewModel existir e todas as respostas estiverem corretas e o número de tentativas for 4, continue navegando
+                    if (acertosImagemAtual != null && acertosImagemAtual.Ano && acertosImagemAtual.Pais && acertosImagemAtual.Continente && acertosImagemAtual.Tentativas == 4)
+                    {
+                        continue;
+                    }
+                    else if (acertosImagemAtual == null || !acertosImagemAtual.Ano || !acertosImagemAtual.Pais || !acertosImagemAtual.Continente || acertosImagemAtual.Tentativas < 4)
+                    {
+                        imagemValidaEncontrada = true;
+                    }
+                }
+
+                // Se o objeto AcertosImagemViewModel existir, use os dados armazenados nele para restaurar o progresso do usuário
+                if (acertosImagemAtual != null)
+                {
+                    NumeroDeTentativas = acertosImagemAtual.Tentativas;
+                }
+                else
+                {
+                    // Se o objeto AcertosImagemViewModel não existir, reinicie o número de tentativas
+                    NumeroDeTentativas = 0;
+                }
+
+                return Json(new { imagem = imagem.Imagem, tentativas = NumeroDeTentativas, indiceAtual = indiceAtual });
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro no método NavegarImagem: {ex.Message}");
+                return Json(new { error = "Ocorreu um erro durante a requisição." });
+            }
+        }
+
+
+
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> ProximaImagem(int? ano, string pais, string continente)
+        public async Task<IActionResult> JogoVerificacao(int? ano, string pais, string continente, int indice)
         {
             try
             {
@@ -78,10 +187,10 @@ namespace Ages.Controllers
                 if (apiResponse != null && apiResponse.ImagemDoDia != null)
                 {
                     // Verifica se o índice atual está dentro dos limites da lista de imagens do dia
-                    if (IndiceAtual >= 0 && IndiceAtual < apiResponse.ImagemDoDia.Count)
+                    if (indice >= 0 && indice < apiResponse.ImagemDoDia.Count)
                     {
                         // Obtém a imagem atual do dia com base no índice atual
-                        var imagemAtual = apiResponse.ImagemDoDia[IndiceAtual];
+                        var imagemAtual = apiResponse.ImagemDoDia[indice];
 
                         // Verifica se o ano e o país da imagem atual correspondem aos fornecidos na requisição
                         // Verifica se algum chute está correto
@@ -90,9 +199,6 @@ namespace Ages.Controllers
                         // Verifica se o ano e o país da imagem atual correspondem aos fornecidos na requisição
                         if (imagemAtual.Ano == ano && imagemAtual.Pais == pais && imagemAtual.Continente == continente)
                         {
-                            // Incrementa o índice para apontar para a próxima imagem
-                            AtualizarIndiceAtual(IndiceAtual);
-
                             // Obtém a próxima imagem da lista JsonResponseImagens
                             var apiResponseImg = HttpContext.Session.Get<List<JogoViewModel>>("JsonResponseImagens");
 
@@ -108,41 +214,43 @@ namespace Ages.Controllers
                                     };
                                 }
 
-                                // Verifica se a rodada atual está completa ou se é uma nova rodada
-                                if (pontuacao.RodadaDados.Count == 0 || pontuacao.RodadaDados.LastOrDefault()?.Tentativas >= 5)
+                                // Procura na lista RodadaDados o objeto AcertosImagemViewModel correspondente à imagem atual
+                                var acertosImagemAtual = pontuacao.RodadaDados.Find(a => a.Id == imagemAtual.Id);
+
+                                if (acertosImagemAtual != null)
                                 {
-                                    // Cria uma nova rodada apenas se a lista estiver vazia ou a última rodada estiver completa
-                                    var novaRodada = new AcertosImagemViewModel();
-                                    pontuacao.RodadaDados.Add(novaRodada);
+                                    // Se o objeto AcertosImagemViewModel existir, use os dados armazenados nele
+                                    NumeroDeTentativas = acertosImagemAtual.Tentativas;
                                 }
-
-                                // Crie um objeto para armazenar os acertos da imagem atual
-                                var acertosImagemAtual = new AcertosImagemViewModel
+                                else
                                 {
-                                    Id = imagemAtual.Id,
-                                    Ano = imagemAtual.Ano == ano,
-                                    Pais = imagemAtual.Pais == pais,
-                                    Continente = imagemAtual.Continente == continente,
-                                    Tentativas = NumeroDeTentativas
-                                };
+                                    // Se o objeto AcertosImagemViewModel não existir, crie um novo
+                                    acertosImagemAtual = new AcertosImagemViewModel
+                                    {
+                                        Id = imagemAtual.Id,
+                                        Ano = imagemAtual.Ano == ano,
+                                        Pais = imagemAtual.Pais == pais,
+                                        Continente = imagemAtual.Continente == continente,
+                                        Tentativas = NumeroDeTentativas
+                                    };
 
-
-                                if (pontuacao.RodadaDados == null || pontuacao.RodadaDados.LastOrDefault()?.Tentativas >= 5)
-                                {
-                                    pontuacao.RodadaDados = new List<AcertosImagemViewModel>();
+                                    // Adiciona o novo objeto AcertosImagemViewModel à lista RodadaDados
+                                    pontuacao.RodadaDados.Add(acertosImagemAtual);
                                 }
-
-                                // Adiciona os acertos da imagem atual à última rodada
-                                pontuacao.RodadaDados.Add(acertosImagemAtual);
-
 
                                 // Salva os dados da pontuação na sessão
                                 HttpContext.Session.Set("PontuacaoUsuario", pontuacao);
-                                // Implemente sua lógica para obter a próxima imagem a partir da lista
-                                var proximaImagem = ObterProximaImagem(apiResponseImg);
+
+                                indice++;
+                                AtualizarIndiceAtual(indice);
+
+                                NumeroDeTentativas = 0;
+
+                                var proximaImagem = ObterImagemAtual(apiResponseImg);
 
                                 // Retorna a próxima imagem no formato adequado (por exemplo, JSON)
-                                return Json(new { imagem = proximaImagem.Imagem, chutesCorretos });
+                                return Json(new { imagem = proximaImagem.Imagem, chutesCorretos, indiceAtual = IndiceAtual });
+
                             }
                             else
                             {
@@ -173,6 +281,46 @@ namespace Ages.Controllers
                             // Incrementa o número de tentativas
                             NumeroDeTentativas++;
 
+                            PontuaçãoUsuarioViewModel pontuacao = HttpContext.Session.Get<PontuaçãoUsuarioViewModel>("PontuacaoUsuario");
+                            if (pontuacao == null)
+                            {
+                                pontuacao = new PontuaçãoUsuarioViewModel
+                                {
+                                    Id = 1,
+                                    RodadaDados = new List<AcertosImagemViewModel>()
+                                };
+                            }
+
+                            // Procura na lista RodadaDados o objeto AcertosImagemViewModel correspondente à imagem atual
+                            var acertosImagemAtual = pontuacao.RodadaDados.Find(a => a.Id == imagemAtual.Id);
+
+                            if (acertosImagemAtual != null)
+                            {
+                                // Se o objeto AcertosImagemViewModel existir, atualize os dados armazenados nele
+                                acertosImagemAtual.Ano = imagemAtual.Ano == ano;
+                                acertosImagemAtual.Pais = imagemAtual.Pais == pais;
+                                acertosImagemAtual.Continente = imagemAtual.Continente == continente;
+                                acertosImagemAtual.Tentativas = NumeroDeTentativas;
+                            }
+                            else
+                            {
+                                // Se o objeto AcertosImagemViewModel não existir, crie um novo
+                                acertosImagemAtual = new AcertosImagemViewModel
+                                {
+                                    Id = imagemAtual.Id,
+                                    Ano = imagemAtual.Ano == ano,
+                                    Pais = imagemAtual.Pais == pais,
+                                    Continente = imagemAtual.Continente == continente,
+                                    Tentativas = NumeroDeTentativas
+                                };
+
+                                // Adiciona o novo objeto AcertosImagemViewModel à lista RodadaDados
+                                pontuacao.RodadaDados.Add(acertosImagemAtual);
+                            }
+
+                            // Salva os dados da pontuação na sessão
+                            HttpContext.Session.Set("PontuacaoUsuario", pontuacao);
+
                             // Verifica o número de tentativas
                             if (NumeroDeTentativas == 1)
                             {
@@ -184,53 +332,10 @@ namespace Ages.Controllers
                             }
                             else if (NumeroDeTentativas == 3)
                             {
-                                // Crie um objeto de modelo para armazenar os acertos do usuário
-
-
                                 return Json(new { error = "Terceira tentativa. Aqui está a dica 3: " + imagemAtual.Dica3, chutesCorretos });
                             }
                             else
                             {
-                                PontuaçãoUsuarioViewModel pontuacao = HttpContext.Session.Get<PontuaçãoUsuarioViewModel>("PontuacaoUsuario");
-                                if (pontuacao == null)
-                                {
-                                    pontuacao = new PontuaçãoUsuarioViewModel
-                                    {
-                                        Id = 1,
-                                        RodadaDados = new List<AcertosImagemViewModel>()
-                                    };
-                                }
-
-                                // Verifica se a rodada atual está completa ou se é uma nova rodada
-                                if (pontuacao.RodadaDados.Count == 0 || pontuacao.RodadaDados.LastOrDefault()?.Tentativas >= 5)
-                                {
-                                    // Cria uma nova rodada apenas se a lista estiver vazia ou a última rodada estiver completa
-                                    var novaRodada = new AcertosImagemViewModel();
-                                    pontuacao.RodadaDados.Add(novaRodada);
-                                }
-
-                                // Crie um objeto para armazenar os acertos da imagem atual
-                                var acertosImagemAtual = new AcertosImagemViewModel
-                                {
-                                    Id = imagemAtual.Id,
-                                    Ano = imagemAtual.Ano == ano,
-                                    Pais = imagemAtual.Pais == pais,
-                                    Continente = imagemAtual.Continente == continente,
-                                    Tentativas = NumeroDeTentativas
-                                };
-
-
-                                if (pontuacao.RodadaDados == null || pontuacao.RodadaDados.LastOrDefault()?.Tentativas >= 5)
-                                {
-                                    pontuacao.RodadaDados = new List<AcertosImagemViewModel>();
-                                }
-
-                                // Adiciona os acertos da imagem atual à última rodada
-                                pontuacao.RodadaDados.Add(acertosImagemAtual);
-
-
-                                // Salva os dados da pontuação na sessão
-                                HttpContext.Session.Set("PontuacaoUsuario", pontuacao);
                                 // Reinicia o número de tentativas
                                 NumeroDeTentativas = 0;
 
@@ -239,11 +344,14 @@ namespace Ages.Controllers
 
                                 if (apiResponseImg != null && apiResponseImg.Any())
                                 {
-                                    // Implemente sua lógica para obter a próxima imagem a partir da lista
-                                    var proximaImagem = ObterProximaImagem(apiResponseImg);
+                                    indice++;
+                                    AtualizarIndiceAtual(indice);
+
+                                    var proximaImagem = ObterImagemAtual(apiResponseImg);
 
                                     // Retorna a próxima imagem no formato adequado (por exemplo, JSON)
-                                    return Json(new { imagem = proximaImagem.Imagem, chutesCorretos });
+                                    return Json(new { imagem = proximaImagem.Imagem, chutesCorretos, indiceAtual = IndiceAtual });
+
                                 }
                                 else
                                 {
@@ -274,6 +382,8 @@ namespace Ages.Controllers
                 return Json(new { error = "Ocorreu um erro durante a requisição." });
             }
         }
+
+
 
 
         public IActionResult DadosUsuarios()
@@ -308,25 +418,16 @@ namespace Ages.Controllers
         }
 
 
-        private JogoViewModel ObterProximaImagem(List<JogoViewModel> listaDeTest2)
+        private JogoViewModel ObterImagemAtual(List<JogoViewModel> listaDeTest2)
         {
             var indiceAtual = ObterIndiceAtual();
 
             if (listaDeTest2 != null && listaDeTest2.Any())
             {
-                indiceAtual = (indiceAtual + 1) % listaDeTest2.Count;
+                // Obtém a imagem atual com base no índice atual
+                var imagemAtual = listaDeTest2[indiceAtual];
 
-                // Obtém a próxima imagem com base no índice atual
-                var proximaImagem = listaDeTest2[indiceAtual];
-
-                // Atualiza o índice para apontar para a próxima imagem na próxima chamada
-                // Incrementando o índice apenas se não for exceder o tamanho da lista
-
-
-                // Armazene o novo índice na sessão
-                AtualizarIndiceAtual(indiceAtual);
-
-                return proximaImagem;
+                return imagemAtual;
             }
             else
             {
@@ -334,6 +435,7 @@ namespace Ages.Controllers
                 return null;
             }
         }
+
 
 
     }

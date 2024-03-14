@@ -4,7 +4,10 @@
 
 body {
     cursor: url('../Imagens/cursor.cur'), auto;
+    overflow-x: hidden;
 }
+
+
 
 .Btn {
     width: 45px;
@@ -61,7 +64,8 @@ body {
     max-width: 100%;
     max-height: 450px; /* Define o máximo de altura da imagem */
     width: fit-content; /* Define a largura da div como 100% */
-    overflow: hidden; /* Garante que o conteúdo excedente seja oculto */
+    overflow: hidden;
+    margin-top: -50px;
 }
 
     .jogo img {
@@ -551,3 +555,235 @@ body {
         float: left;
         line-height: 11px;
     }
+
+.botoes {
+    align-items: center;
+    background-color: rgba(12,29,135, 0.3);
+    border-radius: 8px;
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    display: flex;
+    font-family: Phantomsans, sans-serif;
+    font-size: 18px;
+    line-height: 1em;
+    max-width: 100%;
+    min-width: 140px;
+    padding: 3px;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+    .botoes:active,
+    .botoes:hover {
+        outline: 0;
+    }
+
+    .botoes span {
+        background-color: rgb(5, 6, 45);
+        padding: 16px 24px;
+        border-radius: 6px;
+        width: 100%;
+        height: 100%;
+        transition: 300ms;
+    }
+
+    .botoes:hover span {
+        background: none;
+    }
+
+    .botoes:active {
+        transform: scale(0.9);
+    }
+    .botoes.selected {
+        background-color: var(--maincolor) !important; /* Altere para a cor desejada */
+    }
+
+.selecionar {
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgb(27, 27, 27);
+    padding: 10px 30px;
+    border: 1px solid;
+    border-radius: 1000px;
+    display: inline-block;
+    transition: all .2s;
+    position: relative;
+    margin: 10px;
+    background-color: rgba(12,29,135, 0.3);
+}
+
+    .selecionar:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(27, 27, 27, .5);
+        backdrop-filter: blur(10px);
+    }
+
+.selecionar:active {
+    transform: translateY(-3px);
+}
+
+.selecionar::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: -1;
+    transition: all .3s;
+}
+
+.selecionar:hover::after {
+    background-color: rgb(0, 238, 255);
+    transform: scaleX(1.4) scaleY(1.5);
+    opacity: 0;
+}
+    .selecionar.selected {
+        backdrop-filter: blur(10px);
+        transform: translateY(-8px);
+        box-shadow: 0 10px 20px rgba(27, 27, 27, .5);
+        background-color: rgba(12,29,135, 0.4);
+    }
+    .selecionar.marcado {
+        backdrop-filter: blur(10px)!important;
+        transform: translateY(-4px) !important;
+        box-shadow: 0 10px 20px rgba(27, 27, 27, .5) !important;
+        background-color: cornflowerblue !important;
+    }
+
+.conteudo-tela {
+    width: 100%;
+    position: absolute;
+    transition: all 0.5s ease;
+}
+
+#col1 {
+    left: 0;
+}
+
+#col2 {
+    left: 100%;
+}
+
+#col3 {
+    left: 200%;
+}
+
+.show {
+    left: 0 !important;
+}
+
+.selecionar-ano {
+    margin: auto;
+    width: 600px;
+    display: flex !important;
+    justify-content: space-between;
+    overflow-x: hidden;
+    background-color: transparent;
+}
+
+.botao-correto {
+    background-color: green !important;
+    pointer-events: none;
+}
+.botao-correto-col {
+    background-color: green !important;
+ 
+}
+
+.botao-errado {
+    background-color: red !important;
+    pointer-events: none;
+    opacity: 0.6 !important;
+}
+.desabilitado{
+
+    opacity: 0.6 !important;
+    border: none !important;
+    box-shadow: none !important;
+
+
+}
+
+.dica{
+
+    border-radius: 50px 50px 50px 50px !important;
+    
+    
+}
+
+.dicas {
+   /* Ajuste este valor conforme necessário */
+    overflow-y: auto; 
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.left-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: auto;
+    left: -100%;
+    bottom: auto;
+    right: auto;
+    background: var(--maincolor);
+    transition: all 0.7s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+    .left-layer.active {
+        left: 100%;
+    }
+
+.left-layer--2 {
+    background: var(--secundarycolor);
+    transition-delay: 0.3s;
+}
+
+.left-layer--3 {
+    background: var(--maincolor);
+    transition-delay: 0.2s;
+}
+
+.left-layer--4 {
+    background: var(--secundarycolor);
+    transition-delay: 0.12s;
+}
+
+.right-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: auto;
+    left: 100%;
+    bottom: auto;
+    right: auto;
+    background: var(--maincolor);
+    transition: all 0.9s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+    .right-layer.active {
+        left: -100%;
+    }
+
+.right-layer--2 {
+    background: var(--secundarycolor);
+    transition-delay: 0.3s;
+}
+
+.right-layer--3 {
+    background: var(--maincolor);
+    transition-delay: 0.13s;
+}
+ 

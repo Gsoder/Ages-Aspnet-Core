@@ -1,9 +1,17 @@
+using Ages.Repositorio.Interface;
+using Ages.Repositorio;
 using Microsoft.AspNetCore.Antiforgery;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddHttpContextAccessor();
+
+// Registre o serviço IJogoService
+builder.Services.AddScoped<IJogoService, JogoService>();
 
 // Adicione o suporte a sessões
 builder.Services.AddDistributedMemoryCache(); // Use esse cache para armazenar os dados da sessão em memória

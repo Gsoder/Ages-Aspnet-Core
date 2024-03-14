@@ -114,6 +114,8 @@
         @for (int i = Model[0].NumeroDeDias; i >= 1; i--)
         {
             <button class="item" id="botaoDia@(i)" onclick="selecionarDia(@i)">Dia @i</button>
+            <button class="item" id="botaoDia@(i)" onclick="selecionarDia(@i)">Dia @i</button>
+            <button class="item" id="botaoDia@(i)" onclick="selecionarDia(@i)">Dia @i</button>
         }
     </div>
 </div>
@@ -126,6 +128,12 @@
 <div class="Jogos-Semana-celular" id="JogosRolagem" style="display: none">
     @for (int i = Model[0].NumeroDeDias; i >= 1; i--)
     {
+        <div id="Jogosanteriores-celular" class="draggable-container">
+            <button class="item item-celular" id="botaoCelular@(i)" onclick="selecionarDia(@i)">Dia @i</button> <!-- Inclua o número do dia no ID -->
+        </div>
+        <div id="Jogosanteriores-celular" class="draggable-container">
+            <button class="item item-celular" id="botaoCelular@(i)" onclick="selecionarDia(@i)">Dia @i</button> <!-- Inclua o número do dia no ID -->
+        </div>
         <div id="Jogosanteriores-celular" class="draggable-container">
             <button class="item item-celular" id="botaoCelular@(i)" onclick="selecionarDia(@i)">Dia @i</button> <!-- Inclua o número do dia no ID -->
         </div>
@@ -152,8 +160,8 @@
     </div>
     @using (Html.BeginForm("Jogar", "Jogar", FormMethod.Post, new { id = "formEnviarDificuldade" }))
     {
-        
         <input type="hidden" id="dificuldadeSelecionadaHidden" name="dificuldade" value="">
+        <input type="hidden" id="diaSelecionadaHidden" name="dia" value="">
 
         <button type="button" onclick="enviarDificuldadeParaController()" class="button-style">JOGAR</button>
         // Adicionamos type="button" para evitar que o formulário seja submetido diretamente pelo botão

@@ -745,6 +745,7 @@
         display: flex !important;
         justify-content: space-between;
         overflow-x: hidden;
+        background-color: transparent;
     }
 
     .item {
@@ -803,7 +804,7 @@
     align-items: center;
     z-index: 99; /* garante que o overlay esteja acima de todos os outros elementos */
     opacity: 1; /* definir a opacidade inicial */
-    transition: opacity 1.8s ease; /* adicionar transição para a opacidade */
+    transition: opacity 1s ease; /* adicionar transição para a opacidade */
 }
 
     .overlay.fade-out {

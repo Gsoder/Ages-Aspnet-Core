@@ -31,7 +31,7 @@
     <!-- Seu conteúdo existente -->
 
     <div id="fixado" class="botao-esqurda">
-        <button class="pass">
+        <button id="imagem-anterior" class="pass navegarentreimagens">
             <svg height="2em" class="arrow" viewBox="0 0 512 512">
                 <path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"></path>
             </svg>
@@ -43,16 +43,32 @@
 
 
 
-
-    <div class="jogo">
-        @* <div id="timer" class="timer"></div> *@
-        <img class="imagem" src="@Model.ViewModel[0].Imagem" />
+    <div class="card dica">
+        
+        <div class="jogo">
+            <img id="imagem" class="imagem" src="@Model.ViewModel[0].Imagem" />
+                    <div class="left-layer"></div>
+                    <div class="left-layer left-layer--2"></div>
+                    <div class="left-layer left-layer--3"></div>
+                    <div class="left-layer left-layer--4"></div>
+                    <div class="right-layer"></div>
+                    <div class="right-layer right-layer--2"></div>
+                    <div class="right-layer right-layer--3"></div>
+                    
+    
+            
+        </div>
+        
+        <div class="card-body dicas">
+            <div id="dica1"></div>
+            <div id="dica2"></div>
+            <div id="dica3"></div>
+        </div>
     </div>
 
     <div id="fixado2" class="botao-direito">
-        <button class="pass2">
+        <button class="pass2 navegarentreimagens" id="proxima-imagem">
             <svg height="2em" class="arrow2" viewBox="0 0 512 512"><path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"></path></svg>
-
         </button>
     </div>
 
@@ -60,86 +76,85 @@
 
 </div>
 
-@* <div class="container d-flex align-items-center">
-    <div class="text-center" style="margin:auto;">
-        <div class="row">
-            <div class="col-lg-6">
-                <!-- Coluna principal com largura de 50% em telas grandes -->
-                <div class="row">
-                    <!-- Nova linha para agrupar as colunas -->
-                    <div class="col-6">
-                        <!-- 50% de largura em telas pequenas -->
-                        <div class="col col-md- col-lg-3 col-12">
-                            <!-- Adicionando a classe col-12 para telas menores que 760px -->
-                            <h1 class="textos">Qual o Continente?</h1>
-                            <label for="exampleDataList" class="form-label"></label>
-                            <input class="form-control inputs" list="datalistOptions2" id="continente" placeholder="Digite um Continente..." required>
-                            <div class="invalid-tooltip">
-                                Please select a valid state.
-                            </div>
-                            <datalist id="datalistOptions2">
-                                <option></option>
-                                <option></option>
-                                <option>África</option>
-                                <option>América do Norte</option>
-                                <option>América do Sul</option>
-                                <option>América Central</option>
-                                <option>Ásia</option>
-                                <option>Europa</option>
-                                <option>Oceania</option>
-                            </datalist>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <!-- 50% de largura em telas pequenas -->
-                        <div class="col col-md- col-lg-3 col-12">
-                            <!-- Adicionando a classe col-12 para telas menores que 760px -->
-                            <h1 class="textos">Qual o País?</h1>
-                            <label for="examplepaises" class="form-label"></label>
-                            <input class="form-control inputs" list="paises" id="pais" placeholder="Digite um País..." required>
-                            <div class="invalid-tooltip">
-                                Please select a valid state.
-                            </div>
-                            <datalist id="paises">
-                                <option></option>
-                                <option></option>
-                                <option>Afeganistão</option>
-                                <!-- Lista de países continua aqui -->
-                            </datalist>
-                        </div>
-                    </div>
-                </div>
+<div class="container text-center respostas">
+    <div class="d-flex justify-content-center" style="margin-top: 20px;">
+        <button id="continenteCol" class="selecionar" onclick="handleClick(this,'col1');">Continente</button>
+        <button id="paisCol" class="selecionar" onclick="handleClick(this,'col2')">Pais</button>
+        <button id="anoCol" class="selecionar" onclick="handleClick(this,'col3')">Ano</button>
+
+    </div>
+    <div class="row justify-content-center">
+        <div id="col1" class="col-sm-12 d-flex flex-wrap justify-content-center show conteudo-tela">
+            <button class="botoes mx-1 my-1" id="continente" onclick="  verResposta(this, 'continente')">
+                <span class="text">América do Sul</span>
+            </button>
+            <button class="botoes mx-1 my-1" id="continente" onclick="  verResposta(this, 'continente')">
+                <span class="text">Europa</span>
+            </button>
+            <button class="botoes mx-1 my-1" id="continente" onclick=" verResposta(this, 'continente')">
+                <span class="text">America Central</span>
+            </button>
+            <button class="botoes mx-1 my-1" id="continente" onclick="  verResposta(this, 'continente')">
+                <span class="text">America do norte</span>
+            </button>
+            <button class="botoes mx-1 my-1" id="continente" onclick="  verResposta(this, 'continente')">
+                <span class="text">Asia</span>
+            </button>
+            <button class="botoes mx-1 my-1" id="continente" onclick="   verResposta(this, 'continente')">
+                <span class="text">Oceania</span>
+            </button>
+            <button class="botoes mx-1 my-1" id="continente" onclick="  verResposta(this, 'continente')">
+                <span class="text">Africa</span>
+            </button>
+        </div>
+        <div id="col2" class="col-sm-12 d-flex flex-wrap justify-content-center conteudo-tela">
+            <button class="botoes mx-1 my-1" id="pais" onclick="verResposta(this, 'pais'); ">
+                <span class="text">Santa cruz</span>
+            </button>
+            <button class="botoes mx-1 my-1" id="pais" onclick="verResposta(this, 'pais'); ">
+                <span class="text">Brasil</span>
+            </button>
+            <button class="botoes mx-1 my-1" id="pais" onclick="verResposta(this, 'pais'); ">
+                <span class="text">Espanha</span>
+            </button>
+            <button class="botoes mx-1 my-1" id="pais" onclick="verResposta(this, 'pais'); ">
+                <span class="text">França</span>
+            </button>
+            
+
+        </div>
+        <div id="col3" class="col-sm-12 d-flex flex-wrap justify-content-center conteudo-tela">
+       
+            <div class="selecionar-ano" id="anosRolagem">
+                @for (int i = 2024; i >= 1900; i--)
+                {
+                    <button class="botoes mx-1 my-1" id="ano" onclick="verResposta(this, 'ano')">
+                        <span class="text">@i</span>
+                    </button>
+                }
             </div>
-            <div class="col-lg-6">
-                <!-- Coluna principal com largura de 50% em telas grandes -->
-                <div class="row">
-                    <!-- Nova linha para agrupar as colunas -->
-                    <div class="col-6">
-                        <!-- 50% de largura em telas pequenas -->
-                        <div class="col col-md- col-lg-3 col-12">
-                            <!-- Adicionando a classe col-12 para telas menores que 760px -->
-                            <h1 class="textos">Qual o Ano?</h1>
-                            <label for="examplepaises" class="form-label"></label>
-                            <input class="form-control inputs" type="text" placeholder="Digite um Ano..." aria-label="Digite um Ano..." id="ano" required>
-                            <div class="invalid-tooltip">
-                                Please select a valid state.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <!-- 50% de largura em telas pequenas -->
-                        <div class="col col-md- col-lg-3 col-12 d-flex justify-content-start">
-                            <!-- Adicionando a classe col-12 para telas menores que 760px -->
-                            <button class="avancar" id="proximoBtn">
-                                Avançar!
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
+
+        </div>
+        <div id="col4" class="col-sm-12 d-flex flex-wrap justify-content-center conteudo-tela">
+       
+            <div>Resposta errada numeros de tentativas esgotadas</div>
+            
+
+        </div>
+        <div id="col5" class="col-sm-12 d-flex flex-wrap justify-content-center conteudo-tela">
+
+            
+            <div>Parabens</div>
+
         </div>
     </div>
-</div> *@
+</div>
+
+
+
+
+
 
 
 <div class="timer ">
@@ -213,6 +228,7 @@
     <p>Reload</p>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iScroll/5.2.0/iscroll.min.js"></script>
 
 
 <div class="timer-container">
@@ -225,5 +241,17 @@
 <script>
 
     var dificuldade = @Model.Dificuldade;
+    @for (int i = 0; i < Model.ViewModel.Count; i++)
+    {
+        <text>
+                var imagemIndex = 'imagem' + (@i + 1);
+        chutes[imagemIndex] = chutes[imagemIndex] || {};
+        chutes[imagemIndex].imagem = '@Model.ViewModel[i].Imagem';
+        </text>
+    }
+
+
+
+    
 
 </script>

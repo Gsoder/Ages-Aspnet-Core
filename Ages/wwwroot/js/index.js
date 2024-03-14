@@ -1,7 +1,7 @@
 ﻿
 document.addEventListener('DOMContentLoaded', function () {
     
-    if ('serviceWorker' in navigator) {
+    /*if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register(window.location.origin + "/js/Global/sw.js").then(function (registration) {
             console.log('Service Worker registrado com sucesso:', registration);
         }).catch(function (error) {
@@ -14,14 +14,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 registration.unregister();
             }
         });
-    }
+    }*/
 
 
     var defaultOption = document.getElementById('tickmarks').getElementsByTagName('option')[0].innerHTML;
     document.getElementById('selectedOptionText').innerHTML = defaultOption;
     document.querySelector('.rangedificuldade').value = 0;
-    var isDragging = false;
-    var startY, containerScrollTop;
+
+
+
     var termsAccepted = getCookie("termsAccepted");
     if (termsAccepted === "") {
         var botao = document.getElementById("botao-entrar")
@@ -47,6 +48,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     document.getElementById("btn-termo").addEventListener("click", function () {
+        var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        var gainNode = audioContext.createGain();
+        var source = audioContext.createMediaElementSource(musica);
+        source.connect(gainNode);
+        gainNode.connect(audioContext.destination);
         var overlay = document.querySelector('.overlay');
 
         // Adicionar um atraso de 2 segundos (2000 milissegundos)
@@ -57,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
             overlay.addEventListener('transitionend', function () {
                 overlay.style.display = 'none';
             });
-        }, 2500);
+        }, 2000);
 
         const btn = document.querySelector("#btn-termo");
         const btnText = document.querySelector("#btnText");
@@ -70,9 +76,25 @@ document.addEventListener('DOMContentLoaded', function () {
             // Salvar nos cookies que os termos foram aceitos
             document.cookie = "termsAccepted=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
         }, 100); // Ajuste este valor conforme necessário
+
+        if (audioContext.state === 'suspended') {
+            audioContext.resume();
+        }
+
+        musica.load();
+        document.getElementById("desativarmusicafundo").checked = true;
+
+        musica.oncanplaythrough = function () {
+            var duration = 4.0; // Duração do fade em segundos
+            gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+            gainNode.gain.linearRampToValueAtTime(1, audioContext.currentTime + duration);
+            musica.play();
+        };
     });
 
     
+    var isDragging = false;
+    var startY, containerScrollTop, startX, startScrollLeft;
 
     $("#Jogosanteriores").mousedown(function (e) {
         isDragging = true;
@@ -123,70 +145,43 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-function loadView(viewName) {
-    var worker = new Worker('worker.js');
-    worker.postMessage({ action: 'loadView', viewName: viewName });
-}
 
 
 function selecionarDia(numeroDia) {
-    var csrfToken = getCookie("CSRF-TOKEN");
+    if (window.innerWidth < 570) {
+        var botoes = document.querySelectorAll('.item-celular'); // Selecione os botões da seção para dispositivos móveis
+        botoes.forEach(botao => {
+            botao.classList.remove('selecionado');
+            botao.classList.remove('selecionado-fade'); // Remova a classe 'selecionado-fade' de todos os botões
+            botao.disabled = false; // Habilita todos os botões
+        });
 
-    // Verifique se o token CSRF foi obtido corretamente
-    if (!csrfToken) {
-        console.log("Token CSRF não encontrado nos cookies.");
-        return;
-    }
-    $.ajax({
-        url: '/Home/GetJogoDoDia?numeroDoDia=' + numeroDia,
-        method: 'GET',
-        headers: { "X-CSRF-TOKEN": csrfToken },
-        success: function (data) {
-
-            if (window.innerWidth < 570) {
-                var botoes = document.querySelectorAll('.item-celular'); // Selecione os botões da seção para dispositivos móveis
-                botoes.forEach(botao => {
-                    botao.classList.remove('selecionado');
-                    botao.classList.remove('selecionado-fade'); // Remova a classe 'selecionado-fade' de todos os botões
-                    botao.disabled = false; // Habilita todos os botões
-                });
-
-                // Adicione a classe "selecionado-fade" apenas ao botão clicado
-                var botaoClicado = document.getElementById('botaoCelular' + numeroDia);
-                if (botaoClicado) {
-                    botaoClicado.classList.add('selecionado-fade');
-                    botaoClicado.disabled = true; // Desabilita o botão clicado
-                }
-            } else {
-                var botoes = document.querySelectorAll('.item'); // Selecione os botões da seção para desktop
-                botoes.forEach(botao => {
-                    botao.classList.remove('selecionado');
-                    botao.classList.remove('selecionado-fade'); // Remova a classe 'selecionado-fade' de todos os botões
-                    botao.disabled = false; // Habilita todos os botões
-                });
-
-                // Adicione a classe "selecionado-fade" apenas ao botão clicado
-                var botaoClicado = document.getElementById('botaoDia' + numeroDia);
-                if (botaoClicado) {
-                    botaoClicado.classList.add('selecionado-fade');
-                    botaoClicado.disabled = true; // Desabilita o botão clicado
-                }
-            }
-
-
-
-
-
-            console.log(data)
-            
-        },
-        error: function (xhr, status, error) {
-            console.error("Ocorreu um erro ao buscar o jogo do dia:", error);
+        // Adicione a classe "selecionado-fade" apenas ao botão clicado
+        var botaoClicado = document.getElementById('botaoCelular' + numeroDia);
+        if (botaoClicado) {
+            botaoClicado.classList.add('selecionado-fade');
+            botaoClicado.disabled = true; // Desabilita o botão clicado
         }
-    });
-    // Remova a classe "selecionado" de todos os botões
-    
+    } else {
+        var botoes = document.querySelectorAll('.item'); // Selecione os botões da seção para desktop
+        botoes.forEach(botao => {
+            botao.classList.remove('selecionado');
+            botao.classList.remove('selecionado-fade'); // Remova a classe 'selecionado-fade' de todos os botões
+            botao.disabled = false; // Habilita todos os botões
+        });
+
+        // Adicione a classe "selecionado-fade" apenas ao botão clicado
+        var botaoClicado = document.getElementById('botaoDia' + numeroDia);
+        if (botaoClicado) {
+            botaoClicado.classList.add('selecionado-fade');
+            botaoClicado.disabled = true; // Desabilita o botão clicado
+        }
+    }
+
+    // Atualize o valor do campo oculto "diaSelecionadaHidden" com o número do dia selecionado
+    document.getElementById('diaSelecionadaHidden').value = numeroDia;
 }
+
 function enviarDificuldadeParaController() {
     // Obter o valor selecionado do elemento input
     var dificuldade = document.getElementById("dificuldadeSelecionada").value;

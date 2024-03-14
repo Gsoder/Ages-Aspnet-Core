@@ -1,28 +1,16 @@
-﻿
-document.addEventListener('DOMContentLoaded', function () {
-
-
+﻿document.addEventListener('DOMContentLoaded', function () {
     var cookieValueCur = getCookie("customCursorEnabled");
     if (cookieValueCur === "true") {
         document.getElementById("cursor").checked = true;
-
     }
     var cookieValueSound = getCookie("musicOptionEnabled");
     if (cookieValueSound === "true") {
         document.getElementById("desativarsom").checked = true;
     }
-
-
-    var cookieValueMusic = getCookie("backgroundMusicEnabled");
-    if (cookieValueMusic === "true") {
-        document.getElementById("desativarmusicafundo").checked = true;
-
-    }
+    
 
     document.getElementById("desativarmusicafundo").addEventListener("change", function () {
         checkBackgroundMusicOption();
-
-
     });
 
     document.getElementById("cursor").addEventListener("change", function () {
@@ -30,55 +18,57 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     document.getElementById("desativarsom").addEventListener("change", function () {
-        checkMusicOption();
-    });
-   var buttonsAndInputs = document.querySelectorAll("button, input, a, input[type='submit'], input[type='reset']");
-buttonsAndInputs.forEach(function(element) {
-    element.addEventListener("click", function() {
-        if (isMusicEnabled()) {
-            playSound();
+        if (this.checked) {
+            // Se o botão estiver ativo, adicione ele aos cookies
+            setCookie("musicOptionEnabled", "true", 7); // O '7' representa a quantidade de dias para o cookie expirar
+            // Adiciona o evento de clique para reproduzir o som
+            SomBotao();
+        } else {
+            // Se o botão não estiver ativo, remova ele dos cookies
+            setCookie("musicOptionEnabled", "false", 7);
         }
+        playSound();
     });
 });
-
-
-
-});
-
 
 function checkCursor() {
     var cursorCheckbox = document.getElementById("cursor");
     if (cursorCheckbox.checked) {
-        // Adiciona a classe .custom-cursor ao body
         document.body.classList.add("custom-cursor");
-
-
-        // Armazena a informação em cookies
-        document.cookie = "customCursorEnabled=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+        setCookie("customCursorEnabled", "true", 7);
     } else {
-        // Remove a classe .custom-cursor do body
         document.body.classList.remove("custom-cursor");
-
-        // Remove o cookie
-        document.cookie = "customCursorEnabled=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+        setCookie("customCursorEnabled", "false", 7);
     }
 }
 
-
-
-// Função para adicionar ou remover a opção do usuário nos cookies quando o estado do checkbox mudar
 function checkBackgroundMusicOption() {
     var musicCheckbox = document.getElementById("desativarmusicafundo");
     var currentTime = musica.currentTime;
     console.log("Tempo atual da música: " + currentTime);
     if (musicCheckbox.checked) {
         musica.play();
-        localStorage.setItem("musicOptionEnabled", "true");
+        localStorage.setItem("backgroundMusicEnabled", "true");
     } else {
         musica.pause();
-        localStorage.removeItem("musicOptionEnabled");
+        localStorage.removeItem("backgroundMusicEnabled");
     }
     musica.addEventListener('timeupdate', function () {
         localStorage.setItem("backgroundMusicTime", musica.currentTime.toString());
     });
+}
+
+var localStorageValueMusic = localStorage.getItem("backgroundMusicEnabled");
+if (localStorageValueMusic === "true") {
+    checkMusicOption();
+}
+
+function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
 }

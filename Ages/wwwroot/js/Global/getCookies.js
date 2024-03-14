@@ -1,6 +1,10 @@
 ﻿var musica = new Audio(window.location.origin + "/Musicas/Quiz.mp3");
 musica.loop = true;
 
+
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
     var termsAccepted = getCookie("termsAccepted");
     var cookieValueCur = getCookie("customCursorEnabled");
@@ -10,28 +14,33 @@ document.addEventListener('DOMContentLoaded', function () {
     var cookieValueSound = getCookie("musicOptionEnabled");
     if (cookieValueSound === "true") {
         // Se a música estiver habilitada nos cookies, adicionamos o evento de mouseover para reproduzir o som
-        var buttonsAndInputs = document.querySelectorAll("button, input, a, input[type='submit'], input[type='reset']");
-        buttonsAndInputs.forEach(function (element) {
-            element.addEventListener("click", function () {
-                if (isMusicEnabled()) {
-                    playSound();
-                }
-            });
-        });
+        SomBotao();
 
     }
-    var localStorageValueMusic = localStorage.getItem("musicOptionEnabled");
+    var localStorageValueMusic = localStorage.getItem("backgroundMusicEnabled");
     if (localStorageValueMusic === "true") {
         checkMusicOption();
     }
-
     
 });
 
+function SomBotao() {
+
+    var buttonsAndInputs = document.querySelectorAll("button, input, a, input[type='submit'], input[type='reset']");
+    buttonsAndInputs.forEach(function (element) {
+        element.addEventListener("click", function () {
+            if (isMusicEnabled()) {
+                playSound();
+            }
+        });
+    });
+
+}
+
+
 // Função para verificar se a opção de desativar música está marcada nos cookies
 function isMusicEnabled() {
-    var musicEnabled = getCookie("musicOptionEnabled");
-    return musicEnabled === "true"; // Retorna true se a música estiver habilitada nos cookies
+    return getCookie("musicOptionEnabled") === "true";
 }
 
 // Função para reproduzir o som

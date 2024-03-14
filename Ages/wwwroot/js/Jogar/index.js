@@ -1,8 +1,150 @@
-﻿
+﻿var indiceatual = 0
 
+
+var continenteGlobal;
+var paisGlobal;
+var anoGlobal;
+
+let chutes = {
+    imagem1: {
+        tentativas: 0,
+        dicas: [],
+        imagem: "",
+        correto:
+        {
+            continente: [], // Acessado por objeto.posicao1.continente[0]
+            pais: [], // Acessado por objeto.posicao1.pais[0]
+            ano: []  // Acessado por objeto.posicao1.ano[0]
+        },
+        errado:
+        {
+            continente: [], // Acessado por objeto.posicao1.continente[0]
+            pais: [], // Acessado por objeto.posicao1.pais[0]
+            ano: []  // Acessado por objeto.posicao1.ano[0]
+        },
+    },
+
+    imagem2: {
+        tentativas: 0,
+        dicas: [],
+        imagem: "",
+        correto:
+        {
+            continente: [], // Acessado por objeto.posicao1.continente[0]
+            pais: [], // Acessado por objeto.posicao1.pais[0]
+            ano: []  // Acessado por objeto.posicao1.ano[0]
+        },
+        errado:
+        {
+            continente: [], // Acessado por objeto.posicao1.continente[0]
+            pais: [], // Acessado por objeto.posicao1.pais[0]
+            ano: []  // Acessado por objeto.posicao1.ano[0]
+        },
+    },
+
+    imagem3: {
+        tentativas: 0,
+        dicas: [],
+        imagem: "",
+        correto:
+        {
+            continente: [], // Acessado por objeto.posicao1.continente[0]
+            pais: [], // Acessado por objeto.posicao1.pais[0]
+            ano: []  // Acessado por objeto.posicao1.ano[0]
+        },
+        errado:
+        {
+            continente: [], // Acessado por objeto.posicao1.continente[0]
+            pais: [], // Acessado por objeto.posicao1.pais[0]
+            ano: []  // Acessado por objeto.posicao1.ano[0]
+        },
+    },
+    imagem4: {
+        tentativas: 0,
+        dicas: [],
+        imagem: "",
+        correto:
+        {
+            continente: [], // Acessado por objeto.posicao1.continente[0]
+            pais: [], // Acessado por objeto.posicao1.pais[0]
+            ano: []  // Acessado por objeto.posicao1.ano[0]
+        },
+        errado:
+        {
+            continente: [], // Acessado por objeto.posicao1.continente[0]
+            pais: [], // Acessado por objeto.posicao1.pais[0]
+            ano: []  // Acessado por objeto.posicao1.ano[0]
+        },
+    },
+    imagem5: {
+        tentativas: 0,
+        dicas: [],
+        imagem: "",
+        correto:
+        {
+            continente: [], // Acessado por objeto.posicao1.continente[0]
+            pais: [], // Acessado por objeto.posicao1.pais[0]
+            ano: []  // Acessado por objeto.posicao1.ano[0]
+        },
+        errado:
+        {
+            continente: [], // Acessado por objeto.posicao1.continente[0]
+            pais: [], // Acessado por objeto.posicao1.pais[0]
+            ano: []  // Acessado por objeto.posicao1.ano[0]
+        },
+    }
+};
 window.onload = function () {
 
    
+
+    var myScroll = new IScroll('#anosRolagem', {
+        scrollX: true,
+        scrollY: false,
+        momentum: true,
+        bounce: true
+    });
+    let continenteButton = document.getElementById('continenteCol');
+    selectButton(continenteButton);
+    document.getElementById("proxima-imagem").addEventListener("click", function () {
+        // Se o índice atual for 4 e a direção for para frente (> 0), não faça nada e retorne
+        if (indiceatual != 4) {
+            this.disabled = true; // Desabilita o botão
+            setTimeout(() => this.disabled = false, 1000); // Habilita o botão após 1 segundo
+
+            var layerClass = ".right-layer";
+            var layers = document.querySelectorAll(layerClass);
+            for (const layer of layers) {
+                layer.classList.toggle("active");
+            }
+            setTimeout(function () {
+                navegarImagem('proxima');
+            }, 500); // 500 milissegundos de atraso
+        }
+        
+    });
+
+    document.getElementById("imagem-anterior").addEventListener("click", function () {
+        if (indiceatual != 0) {
+            this.disabled = true; // Desabilita o botão
+            setTimeout(() => this.disabled = false, 1000); // Habilita o botão após 1 segundo
+
+            var layerClass = ".left-layer";
+            var layers = document.querySelectorAll(layerClass);
+            for (const layer of layers) {
+                layer.classList.toggle("active");
+            }
+            setTimeout(function () {
+                navegarImagem('anterior');
+            }, 500);
+        }
+         // 500 milissegundos de atraso
+    });
+
+
+
+    $("#fixado").prop('disabled', true).addClass('desabilitado');
+    
     window.addEventListener('resize', function () {
         var container3 = document.getElementById("container-jogo");
     
@@ -18,99 +160,10 @@ window.onload = function () {
 
 
 
-    $("#proximoBtn").click(function () {
-        var csrfToken = getCookie("CSRF-TOKEN");
-
-        // Verifique se o token CSRF foi obtido corretamente
-        if (!csrfToken) {
-            console.log("Token CSRF não encontrado nos cookies.");
-            return;
-        }
-        console.log(document.getElementById("ano").value)
-        console.log(document.getElementById("pais").value)
-        console.log(document.getElementById("continente").value)
-       
-
-        // Faça a requisição AJAX incluindo o token CSRF no cabeçalho da requisição
-        $.ajax({
-            url: "/Jogar/ProximaImagem",
-            type: "POST",
-            headers: { "X-CSRF-TOKEN": csrfToken },
-            data: { ano: document.getElementById("ano").value, pais: document.getElementById("pais").value, continente: document.getElementById("continente").value },
-            success: function (response) {
-                console.log(response);
-
-                // Verifica se a resposta contém um URL de imagem
-                if (response && typeof response === 'object' && response.imagem) {
-                    // Atualiza o src da imagem com o URL retornado pela requisição
-                    $(".jogo .imagem").attr("src", response.imagem);
-                } else {
-                    // Array para armazenar os IDs dos inputs corretos
-                    var inputsCorretos = [];
-
-                    if (response && typeof response === 'object' && response.chutesCorretos && response.chutesCorretos.length > 0) {
-                        // Se há chutes corretos, faça algo com eles (por exemplo, exiba-os na interface)
-                        console.log("Chutes corretos:", response.chutesCorretos);
-
-                        // Percorre os chutes corretos
-                        response.chutesCorretos.forEach(function (chuteCorreto) {
-                            // Seleciona o input correspondente ao chute correto
-                            switch (chuteCorreto) {
-                                case 'ano':
-                                    if (!$('#ano').hasClass('correto')) {
-                                        // Adiciona a classe 'correto' com fade
-                                        $('#ano').addClass('correto').hide().fadeIn();
-                                        // Adiciona o ID do input aos inputs corretos
-                                        inputsCorretos.push('ano');
-                                    }
-                                    break;
-                                case 'país':
-                                    if (!$('#pais').hasClass('correto')) {
-                                        $('#pais').addClass('correto').hide().fadeIn();
-                                        inputsCorretos.push('pais');
-                                    }
-                                    break;
-                                case 'continente':
-                                    if (!$('#continente').hasClass('correto')) {
-                                        $('#continente').addClass('correto').hide().fadeIn();
-                                        inputsCorretos.push('continente');
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }
-
-                        });
-
-                        // Desabilita os inputs que foram marcados como corretos
-                        $('.correto').prop('disabled', true);
-
-                        // Remove os inputs corretos da lista de inputs a serem verificados
-                        inputsCorretos.forEach(function (inputId) {
-                            $('.inputs').not('.correto').not('#' + inputId).css('background-color', 'red').fadeOut().fadeIn();
-                        });
-                    } else {
-                        // Caso contrário, faça algo diferente
-                    }
 
 
 
 
-                }
-            },
-            error: function (xhr, status, error) {
-                console.log("Erro na requisição AJAX:", error);
-                // Limpa a imagem em caso de erro
-                $("#imagem-jogo").attr("src", "");
-            }
-        });
-
-
-
-    });
-
-}
-document.addEventListener('DOMContentLoaded', function () {
     var timeLimit;
     switch (dificuldade) {
         case 0:
@@ -130,27 +183,13 @@ document.addEventListener('DOMContentLoaded', function () {
             timeLimit = null; // Valor padrão caso a dificuldade não corresponda
             break;
     }
-});    
+    
 
 
 
-
-document.getElementById("ano").addEventListener("keypress", function (event) {
-    // Obter o código Unicode do caractere digitado
-    var charCode = event.which ? event.which : event.keyCode;
-
-    // Verificar se o caractere é um número
-    if (charCode < 48 || charCode > 57) {
-        // Cancelar a entrada se não for um número
-        event.preventDefault();
-    }
-});
-
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
 }
+
+
 function Overtime() {
     
     var overlay = document.querySelector('.overlay');
@@ -164,7 +203,7 @@ function formatTime(seconds) {
     var remainingSeconds = seconds % 60;
     return (minutes < 10 ? "0" : "") + minutes + ":" + (remainingSeconds < 10 ? "0" : "") + remainingSeconds;
     }
-    function Timers(timeLimit) {
+function Timers(timeLimit) {
 
         TweenLite.defaultEase = Expo.easeOut;
 
@@ -308,3 +347,437 @@ function removeElements(...selectors) {
         });
     });
 }
+
+function atualizarBotoes() {
+  
+
+    $("#continenteCol").removeClass('botao-correto-col');
+    $("#paisCol").removeClass('botao-correto-col');
+    $("#anoCol").removeClass('botao-correto-col');
+    // Habilita todos os botões
+    $(".botoes").prop('disabled', false).removeClass('botao-correto botao-errado desabilitado');
+
+    // Desabilita os botões corretos e errados
+    let imagemAtual = 'imagem' + (indiceatual + 1);
+    let botoesCorretos = chutes[imagemAtual].correto;
+    let botoesErrados = chutes[imagemAtual].errado;
+
+    for (let tipo in botoesCorretos) {
+        for (let i = 0; i < botoesCorretos[tipo].length; i++) {
+            let botao = botoesCorretos[tipo][i];
+            $(botao).addClass('botao-correto').prop('disabled', true);
+
+            // Desativa todos os outros botões na mesma coluna
+            if (tipo == 'continente') {
+                $("#col1 .botoes").not(botao).prop('disabled', true).addClass('desabilitado');
+                $("#continenteCol").addClass('botao-correto-col');
+                continenteGlobal = botao;
+            } else if (tipo == 'pais') {
+                $("#col2 .botoes").not(botao).prop('disabled', true).addClass('desabilitado');
+                $("#paisCol").addClass('botao-correto-col');
+                paisGlobal = botao;
+            } else if (tipo == 'ano') {
+                $("#col3 .botoes").not(botao).prop('disabled', true).addClass('desabilitado');
+                $("#anoCol").addClass('botao-correto-col');
+                anoGlobal = botao;
+            }
+        }
+    }
+
+
+    for (let tipo in botoesErrados) {
+        for (let i = 0; i < botoesErrados[tipo].length; i++) {
+            let botao = botoesErrados[tipo][i];
+            $(botao).addClass('botao-errado').prop('disabled', true);
+        }
+    }
+}
+
+// Chame a função atualizarBotoes após navegar para uma nova imagem
+function navegarImagem(direcao) {
+    if (indiceatual === 0 && direcao === "anterior") {
+        console.log("Já está na primeira imagem, não pode voltar.");
+        $("#fixado").prop('disabled', true).addClass('desabilitado'); // Desativa o botão 'fixado'
+        return;
+    }
+    // Se o índice atual for 4 e a direção for para frente (> 0), não faça nada e retorne
+    if (indiceatual === 4 && direcao === "proxima") {
+        console.log("Já está na última imagem, não pode avançar.");
+        $("#fixado2").prop('disabled', true).addClass('desabilitado'); // Desativa o botão 'fixado2'
+        return;
+    }
+    
+
+    // Se não retornou, habilite os botões 'fixado' e 'fixado2'
+    $("#fixado, #fixado2").prop('disabled', false).removeClass('desabilitado');
+
+
+
+
+    let proximoIndice = indiceatual;
+    if (direcao === "anterior") {
+        proximoIndice--;
+    } else {
+        proximoIndice++;
+    }
+
+    let imagemProxima = 'imagem' + (proximoIndice + 1);
+
+    let dicas = chutes[imagemProxima].dicas;
+
+    // Se houver dicas para a próxima imagem, substitua as dicas atuais
+    
+     Dicas(imagemProxima, null);
+   
+
+    
+
+    continenteGlobal = chutes[imagemProxima].correto.continente.length > 0 ? chutes[imagemProxima].correto.continente[0] : null;
+    paisGlobal = chutes[imagemProxima].correto.pais.length > 0 ? chutes[imagemProxima].correto.pais[0] : null;
+    anoGlobal = chutes[imagemProxima].correto.ano.length > 0 ? chutes[imagemProxima].correto.ano[0] : null;
+
+    // Verifica se a próxima imagem já está armazenada no objeto chutes
+    if (chutes[imagemProxima].imagem !== "") {
+        console.log("A próxima imagem já está armazenada no objeto.");
+        $('#imagem').attr('src', chutes[imagemProxima].imagem);
+        indiceatual = proximoIndice;
+        atualizarBotoes();
+        if (continenteGlobal == null) {
+            showCol("col1");
+        } else if (paisGlobal == null) {
+            showCol("col2");
+        } else if (anoGlobal == null) {
+            showCol("col3");
+        }
+    } else {
+        // Se a imagem não estiver armazenada, faça a requisição AJAX
+        $.ajax({
+            url: '/Jogar/NavegarImagem',
+            type: 'POST',
+            data: { direcao: direcao, indice: indiceatual },
+            success: function (data) {
+                $('#imagem').attr('src', data.imagem);
+                console.log(data);
+                indiceatual = data.indiceAtual;
+                atualizarBotoes();
+
+                // Armazena a imagem no objeto chutes
+                chutes[imagemProxima].imagem = data.imagem;
+                if (continenteGlobal == null) {
+                    showCol("col1");
+                } else if (paisGlobal == null) {
+                    showCol("col2");
+                } else if (anoGlobal == null) {
+                    showCol("col3");
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+    }
+}
+
+
+var selectedButton;
+function handleClick(button, id) {
+    selectButton(button);
+    showCol(id);
+}
+
+function selectButton(button) {
+    if (selectedButton) {
+        selectedButton.classList.remove('selected');
+    }
+    button.classList.add('selected');
+    selectedButton = button;
+}
+var currentCol = 'col1';
+
+function showCol(id) {
+    var cols = document.getElementsByClassName('col-sm-12');
+    for (var i = 0; i < cols.length; i++) {
+        if (cols[i].id === id) {
+            cols[i].style.left = '0';
+        } else {
+            cols[i].style.left = '100%'; // Movendo todas as colunas para a direita
+        }
+        cols[i].classList.remove('show');
+    }
+    document.getElementById(id).classList.add('show');
+    currentCol = id;
+
+    // Seleciona o botão correspondente
+    if (id === 'col1') {
+        selectButton(document.getElementById('continenteCol'));
+    } else if (id === 'col2') {
+        selectButton(document.getElementById('paisCol'));
+    } else if (id === 'col3') {
+        selectButton(document.getElementById('anoCol'));
+    }
+}
+
+
+
+
+
+function verificarResposta(continenteBotao, paisBotao, anoBotao) {
+    
+
+    // Verifica se é a última tentativa ou se o usuário acertou tudo da última imagem
+    let lastImage = 'imagem' + (indiceatual + 1);
+
+
+    if (indiceatual === 4 &&
+        (chutes[lastImage].tentativas >= 3 ||
+            (chutes[lastImage].correto.continente.length > 0 &&
+                chutes[lastImage].correto.pais.length > 0 &&
+                chutes[lastImage].correto.ano.length > 0))) {
+
+        console.log(`The last image has exhausted all attempts or the user has guessed everything correctly.`);
+
+        for (let rodadas in chutes) {
+            // Check if attempts are less than 3 or if any correct field is empty
+            if (chutes[rodadas].tentativas < 3 ||
+                (chutes[rodadas].correto.continente.length === 0 ||
+                    chutes[rodadas].correto.pais.length === 0 ||
+                    chutes[rodadas].correto.ano.length === 0)) {
+
+                indiceatual = parseInt(rodadas.replace('imagem', '')) - 1;
+                atualizarImg(chutes[rodadas].imagem) // Passa a URL da nova imagem como argumento
+                atualizarBotoes()
+                showCol("col1")
+                return
+            }
+            // Check if all attempts have been used up or all correct fields are filled
+            else if (chutes[rodadas].tentativas >= 3 &&
+                chutes[rodadas].correto.continente.length > 0 &&
+                chutes[rodadas].correto.pais.length > 0 &&
+                chutes[rodadas].correto.ano.length > 0) {
+                continue; // Skip to the next image
+            }
+            else {
+                // If none of the above conditions are met, update the current index to the current image
+                indiceatual = parseInt(rodadas.replace('imagem', '')) - 1;
+                break; // Exit the loop
+            }
+        }
+    }
+
+
+
+    EnviarResposta(continenteBotao, paisBotao, anoBotao)
+
+
+    
+   
+    
+
+};
+
+function EnviarResposta(continenteBotao, paisBotao, anoBotao) {
+    var continente = typeof continenteBotao === 'string' ? continenteBotao : continenteBotao.innerText;
+    var pais = typeof paisBotao === 'string' ? paisBotao : paisBotao.innerText;
+    var ano = typeof anoBotao === 'string' ? anoBotao : anoBotao.innerText;
+
+    var csrfToken = getCookie("CSRF-TOKEN");
+
+    // Verifique se o token CSRF foi obtido corretamente
+    if (!csrfToken) {
+        console.log("Token CSRF não encontrado nos cookies.");
+        return;
+    }
+
+    // Faça a requisição AJAX incluindo o token CSRF no cabeçalho da requisição
+    $.ajax({
+        url: "/Jogar/JogoVerificacao",
+        type: "POST",
+        headers: { "X-CSRF-TOKEN": csrfToken },
+        data: { ano: ano, pais: pais, continente: continente, indice: indiceatual },
+        success: function (response) {
+            console.log(response);
+            if (response.error) {
+                let imagemAtual = 'imagem' + (indiceatual + 1);
+                chutes[imagemAtual].dicas.push(response.error);
+                Dicas(imagemAtual, response.error)
+            }
+
+            // Verifica se a resposta contém um URL de imagem
+            if (response && typeof response === 'object' && response.imagem) {
+
+                // Atualiza o src da imagem com o URL retornado pela requisição
+                $(".jogo .imagem").attr("src", response.imagem);
+                indiceatual = response.indiceAtual
+                $("#fixado").prop('disabled', false).removeClass('desabilitado');
+                showCol("col1")
+                atualizarBotoes()
+                let imagemAtual = 'imagem' + (indiceatual + 1);
+                Dicas(imagemAtual, null);
+                chutes[imagemAtual].imagem = response.imagem;
+                continenteGlobal = null;
+                paisGlobal = null;
+                anoGlobal = null;
+
+            } else {
+                if (response.chutesCorretos && response.chutesCorretos.length > 0) {
+
+                    for (let i = 0; i < response.chutesCorretos.length; i++) {
+                        let respostaCorreta = response.chutesCorretos[i];
+
+                        // Adicione a resposta correta ao objeto chutes a partir do indiceatual
+                        let imagemAtual = 'imagem' + (indiceatual + 1); // Adiciona 1 ao indiceatual porque os índices começam em 0
+                        if (respostaCorreta == 'ano') {
+                            chutes[imagemAtual].correto[respostaCorreta].push(anoBotao);
+                            $(anoBotao).addClass('botao-correto').prop('disabled', true);
+                            $("#col3 .botoes").not(continenteBotao).prop('disabled', true).addClass('desabilitado');
+                            $("#anoCol").addClass('botao-correto-col');
+                            anoGlobal = ano
+                        } else if (respostaCorreta == 'pais') {
+                            chutes[imagemAtual].correto[respostaCorreta].push(paisBotao);
+                            $(paisBotao).addClass('botao-correto').prop('disabled', true);
+                            $("#col2 .botoes").not(paisBotao).prop('disabled', true).addClass('desabilitado');
+                            $("#paisCol").addClass('botao-correto-col');
+                            paisGlobal = pais
+                        } else if (respostaCorreta == 'continente') {
+                            chutes[imagemAtual].correto[respostaCorreta].push(continenteBotao);
+                            $(continenteBotao).addClass('botao-correto').prop('disabled', true);
+                            $("#col1 .botoes").not(anoBotao).prop('disabled', true).addClass('desabilitado');
+                            $("#continenteCol").addClass('botao-correto-col');
+                            continenteGlobal = continente;
+                        }
+
+                    }
+
+                    // Adicione as respostas que não foram adicionadas à lista de corretos à lista de errados
+                    let imagemAtual = 'imagem' + (indiceatual + 1); // Adiciona 1 ao indiceatual porque os índices começam em 0
+                    if (!chutes[imagemAtual].correto['ano'].includes(anoBotao)) {
+                        chutes[imagemAtual].errado['ano'].push(anoBotao);
+                        $(anoBotao).addClass('botao-errado').prop('disabled', true);
+                        anoGlobal = null;
+                    }
+                    if (!chutes[imagemAtual].correto['pais'].includes(paisBotao)) {
+                        chutes[imagemAtual].errado['pais'].push(paisBotao);
+                        $(paisBotao).addClass('botao-errado').prop('disabled', true);
+                        paisGlobal = null;
+                    }
+                    if (!chutes[imagemAtual].correto['continente'].includes(continenteBotao)) {
+                        chutes[imagemAtual].errado['continente'].push(continenteBotao);
+                        $(continenteBotao).addClass('botao-errado').prop('disabled', true);
+                        continenteGlobal = null;
+                    }
+
+                    chutes[imagemAtual].tentativas += 1;
+
+
+                } else {
+                    let imagemAtual = 'imagem' + (indiceatual + 1); // Adiciona 1 ao indiceatual porque os índices começam em 0
+                    chutes[imagemAtual].errado['ano'].push(anoBotao);
+                    chutes[imagemAtual].errado['pais'].push(paisBotao);
+                    chutes[imagemAtual].errado['continente'].push(continenteBotao);
+                    $(anoBotao).addClass('botao-errado').prop('disabled', true);
+                    $(paisBotao).addClass('botao-errado').prop('disabled', true);
+                    $(continenteBotao).addClass('botao-errado').prop('disabled', true);
+                    continenteGlobal = null;
+                    paisGlobal = null;
+                    anoGlobal = null;
+                    chutes[imagemAtual].tentativas += 1;
+
+                }
+
+            }
+            if (continenteGlobal == null) {
+                showCol("col1");
+            } else if (paisGlobal == null) {
+                showCol("col2");
+            } else if (anoGlobal == null) {
+                showCol("col3");
+            }
+
+        },
+        error: function (xhr, status, error) {
+            console.log("Erro na requisição AJAX:", error);
+            // Limpa a imagem em caso de erro
+            $("#imagem-jogo").attr("src", "");
+        }
+    });
+
+
+}
+
+
+
+function Dicas(imagemAtual, novaDica) {
+    let dicas = chutes[imagemAtual].dicas;
+    if (dicas.length > 0) {
+        let totalHeight = 0; // Adicionado para calcular a altura total
+        for (let i = 0; i < dicas.length; i++) {
+            let dica = $('#dica' + (i + 1));
+            if (novaDica == null || dicas[i] == novaDica) {
+                dica.hide().text(dicas[i]).fadeIn(500).promise().done(function () {
+                    totalHeight += dica.height(); // Adicione a altura da dica à altura total
+                    $('.card-body').animate({
+                        'max-height': totalHeight // Use a altura total em vez da altura da dica
+                    }, 500);
+                });
+            } else {
+                dica.text(dicas[i]);
+            }
+        }
+    } else {
+        $('.card-body').animate({
+            'max-height': 0
+        }, 500);
+        for (let i = 1; i <= 3; i++) {
+            $('#dica' + i).fadeOut(500, function () {
+                $(this).text('');
+            });
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+function verResposta(button, tipo) {
+
+    // Adicione o texto do botão ao array correspondente
+    if (tipo === 'continente') {
+        continenteGlobal = button;
+    } else if (tipo === 'pais') {
+        paisGlobal = button;
+    } else if (tipo === 'ano') {
+        anoGlobal = button;
+    }
+
+    // Verifique se todos os arrays têm pelo menos um valor
+    if (continenteGlobal != null && paisGlobal != null && anoGlobal != null) {
+        verificarResposta(continenteGlobal, paisGlobal, anoGlobal);
+    } else {
+        // Se algum valor estiver faltando, chame a função showCol para a coluna correspondente
+        if (continenteGlobal == null) {
+            showCol("col1");
+            /*$("#continenteCol").addClass("marcado");*/ // Adiciona a classe 'selected' ao botão
+        } else if (paisGlobal == null) {
+            showCol("col2");
+            /*$("#paisCol").addClass("marcado");*/ // Adiciona a classe 'selected' ao botão
+        } else if (anoGlobal == null) {
+            showCol("col3");
+            /*$("#anoCol").addClass("selected");*/ // Adiciona a classe 'selected' ao botão
+        }
+    }
+}
+
+
+$(document).ready(function () {
+    window.atualizarImg = function (data) {
+        $("#imagem-jogo").attr("src", data);
+    }
+});
