@@ -697,9 +697,9 @@ C:\Users\gabza\Desktop\Ages\Ages\obj\Debug\net8.0\staticwebassets\msbuild.buildM
 C:\Users\gabza\Desktop\Ages\Ages\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.Ages.props
 C:\Users\gabza\Desktop\Ages\Ages\obj\Debug\net8.0\staticwebassets.pack.json
 C:\Users\gabza\Desktop\Ages\Ages\obj\Debug\net8.0\scopedcss\bundle\Ages.styles.css
-C:\Users\gabza\Desktop\Ages\Ages\obj\Debug\net8.0\Ages.csproj.CopyComplete
 C:\Users\gabza\Desktop\Ages\Ages\obj\Debug\net8.0\Ages.dll
 C:\Users\gabza\Desktop\Ages\Ages\obj\Debug\net8.0\refint\Ages.dll
 C:\Users\gabza\Desktop\Ages\Ages\obj\Debug\net8.0\Ages.pdb
 C:\Users\gabza\Desktop\Ages\Ages\obj\Debug\net8.0\Ages.genruntimeconfig.cache
 C:\Users\gabza\Desktop\Ages\Ages\obj\Debug\net8.0\ref\Ages.dll
+C:\Users\gabza\Desktop\Ages\Ages\obj\Debug\net8.0\Ages.csproj.Up2Date

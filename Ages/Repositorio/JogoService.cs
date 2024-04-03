@@ -25,7 +25,7 @@ namespace Ages.Repositorio
             _httpContextAccessor.HttpContext.Session.Clear();
 
             // Construir a parte final da URL da API usando o número de dias
-            string apiUrl = $"https://localhost:7224/api/ListaImagens/{numeroDoDia}";
+            string apiUrl = $"http://localhost:5148/api/ListaImagens/{numeroDoDia}";
 
             using (HttpClient client = new HttpClient())
             {

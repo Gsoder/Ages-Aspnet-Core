@@ -428,9 +428,7 @@ function navegarImagem(direcao) {
     // Se houver dicas para a próxima imagem, substitua as dicas atuais
     
      Dicas(imagemProxima, null);
-   
 
-    
 
     continenteGlobal = chutes[imagemProxima].correto.continente.length > 0 ? chutes[imagemProxima].correto.continente[0] : null;
     paisGlobal = chutes[imagemProxima].correto.pais.length > 0 ? chutes[imagemProxima].correto.pais[0] : null;
@@ -494,20 +492,45 @@ function selectButton(button) {
 }
 var currentCol = 'col1';
 
-function showCol(id) {
+function showCol(id, resposta) {
     var cols = document.getElementsByClassName('col-sm-12');
     for (var i = 0; i < cols.length; i++) {
-        if (cols[i].id === id) {
-            cols[i].style.left = '0';
-        } else {
-            cols[i].style.left = '100%'; // Movendo todas as colunas para a direita
-        }
+        cols[i].style.left = '100%'; // Movendo todas as colunas para a direita
         cols[i].classList.remove('show');
     }
-    document.getElementById(id).classList.add('show');
-    currentCol = id;
 
-    // Seleciona o botão correspondente
+    // Verificando se a resposta é true ou false
+    if (resposta === true) {
+        // Mostrando a coluna 5 por 3 segundos
+        document.getElementById('col5').style.left = '0';
+        document.getElementById('col5').classList.add('show');
+        setTimeout(function () {
+            document.getElementById('col5').style.left = '100%';
+            document.getElementById('col5').classList.remove('show');
+
+            // Mostrando a coluna vinculada ao ID após 3 segundos
+            document.getElementById(id).style.left = '0';
+            document.getElementById(id).classList.add('show');
+        }, 3000);
+    } else if (resposta === false) {
+        // Mostrando a coluna 4 por 3 segundos
+        document.getElementById('col4').style.left = '0';
+        document.getElementById('col4').classList.add('show');
+        setTimeout(function () {
+            document.getElementById('col4').style.left = '100%';
+            document.getElementById('col4').classList.remove('show');
+
+            // Mostrando a coluna vinculada ao ID após 3 segundos
+            document.getElementById(id).style.left = '0';
+            document.getElementById(id).classList.add('show');
+        }, 3000);
+    } else {
+        // Se a resposta for undefined, apenas mostramos a coluna vinculada ao ID
+        document.getElementById(id).style.left = '0';
+        document.getElementById(id).classList.add('show');
+    }
+
+    // Selecionando o botão correspondente
     if (id === 'col1') {
         selectButton(document.getElementById('continenteCol'));
     } else if (id === 'col2') {
@@ -515,7 +538,11 @@ function showCol(id) {
     } else if (id === 'col3') {
         selectButton(document.getElementById('anoCol'));
     }
+
+    currentCol = id;
 }
+
+
 
 
 
@@ -609,9 +636,21 @@ function EnviarResposta(continenteBotao, paisBotao, anoBotao) {
                 $(".jogo .imagem").attr("src", response.imagem);
                 indiceatual = response.indiceAtual
                 $("#fixado").prop('disabled', false).removeClass('desabilitado');
-                showCol("col1")
                 atualizarBotoes()
                 let imagemAtual = 'imagem' + (indiceatual + 1);
+                let imagemAnterior = 'imagem' + (indiceatual);
+                let tentativas = chutes[imagemAnterior].tentativas;
+                let acertouIndices = chutes[imagemAnterior].correto.continente.length > 0 &&
+                    chutes[imagemAnterior].correto.pais.length > 0 &&
+                    chutes[imagemAnterior].correto.ano.length > 0;
+
+                if (tentativas >= 3) {
+                    // O usuário esgotou as tentativas, mostre a coluna 4
+                    showCol('col4', false);
+                } else if (acertouIndices) {
+                    // O usuário acertou todos os índices, mostre a coluna 5
+                    showCol('col5', true);
+                }
                 Dicas(imagemAtual, null);
                 chutes[imagemAtual].imagem = response.imagem;
                 continenteGlobal = null;

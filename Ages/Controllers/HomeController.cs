@@ -87,13 +87,13 @@ namespace Ages.Controllers
 
         public async Task<IActionResult> Index()
         {
-            // Definir a data de referência (por exemplo, a data de lançamento do jogo)
-            DateTime dataDeReferencia = new DateTime(2024, 3, 9); // Por exemplo, 17 de fevereiro de 2024
+            // Definir a data de referï¿½ncia (por exemplo, a data de lanï¿½amento do jogo)
+            DateTime dataDeReferencia = new DateTime(2024, 4, 2); // Por exemplo, 17 de fevereiro de 2024
 
-            // Calcular o número de dias desde a data de referência até hoje
+            // Calcular o nï¿½mero de dias desde a data de referï¿½ncia atï¿½ hoje
             TimeSpan diasDesdeReferencia = DateTime.Today - dataDeReferencia;
 
-            // Adicionar 1 ao número de dias, já que você quer que o número comece de 1
+            // Adicionar 1 ao nï¿½mero de dias, jï¿½ que vocï¿½ quer que o nï¿½mero comece de 1
             int numeroDeDias = diasDesdeReferencia.Days + 1;
 
             List<JogoViewModel> viewModelList = new List<JogoViewModel>();
@@ -108,13 +108,13 @@ namespace Ages.Controllers
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Erro no método Jogo: {ex.Message}");
-                    return Json(new { error = "Ocorreu um erro durante a requisição." });
+                    Console.WriteLine($"Erro no mï¿½todo Jogo: {ex.Message}");
+                    return Json(new { error = "Ocorreu um erro durante a requisiï¿½ï¿½o." });
                 }
             }
             else
             {
-                // Se a resposta da API estiver na sessão, retorne a lista de objetos JogoViewModel com base nela
+                // Se a resposta da API estiver na sessï¿½o, retorne a lista de objetos JogoViewModel com base nela
                 viewModelList = apiResponse.ImagemDoDia.Select(imagem => new JogoViewModel
                 {
                     Id = imagem.Id,
